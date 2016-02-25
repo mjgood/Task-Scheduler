@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:id="@+id/listviewDailyTask"
+        android:background="@color/gray">
+    </ListView>
+
+    <!-- TO-DO: TURN THIS INTO A LISTVIEW !-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/listviewDailyTask">
+
+        <!-- Task -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/gray"
+            android:onClick="viewTask">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task: Brush Teeth"
+                android:id="@+id/titleTask1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8:30am-8:45am"
+                android:layout_alignParentRight="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:text="  Make them all so white and sparkly!"
+                android:id="@+id/descriptionTask1"
+                android:layout_below="@id/titleTask1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:text=""
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/descriptionTask1"/>
+        </RelativeLayout>
+
+        <!-- Task -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/gray"
+            android:onClick="viewTask">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task: Finish Wireframes"
+                android:id="@+id/titleTask2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deadline: 11:59pm"
+                android:layout_alignParentRight="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:text="  Finish the wireframes for 475 so my teammates won't be mad at me"
+                android:id="@+id/descriptionTask2"
+                android:layout_below="@id/titleTask2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:text="Priority: 2"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/descriptionTask2"/>/>
+        </RelativeLayout>
+
+        <!-- Task -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/gray"
+            android:onClick="viewTask">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task: Binge watch Better Off Ted on Netflix"
+                android:id="@+id/titleTask3"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_alignParentRight="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:text="  This show is terrifically awesome. Need need need to watch it another 17 times at least"
+                android:id="@+id/descriptionTask3"
+                android:layout_below="@id/titleTask3"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:text="Priority: 1"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/descriptionTask3"/>/>
+        </RelativeLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="TO-DO: SWIPE GESTURE OPENS SIDEBAR"
+            android:onClick="swipeButton"/>
+    </LinearLayout>
+
+</RelativeLayout>

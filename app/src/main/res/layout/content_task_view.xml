@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.razzaliaxindiferous.taskscheduler.TaskView"
+    tools:showIn="@layout/activity_task_view"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Hang Out With Cat"
+            android:id="@+id/textView4" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:onClick="taskEdit"
+            android:text="Edit Task" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Daily, All Day"
+        android:id="@+id/textView5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="High Priority"
+        android:id="@+id/textView6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Description"
+        android:id="@+id/textView7" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/scrollView" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My cat is pretty great, and it's important that I hang out with her all the time.\n\n
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras auctor erat magna, eu aliquet orci iaculis vitae. Nulla eleifend tortor at diam aliquet tempus id non massa. Aenean luctus sollicitudin neque nec pretium. Etiam congue lectus diam, a efficitur ante bibendum quis. Duis scelerisque malesuada dui, at commodo leo dignissim eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin quis eros a nulla ultricies ultrices.\n\n
+            Suspendisse sodales odio eu magna facilisis tempor. Ut consequat commodo ligula quis finibus. Morbi suscipit laoreet dolor, quis volutpat diam facilisis a. Nunc nunc augue, pharetra vitae posuere et, condimentum eget velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed mollis, nisi nec dictum dapibus, nunc erat cursus arcu, a commodo nibh mauris eget dolor. Cras ut tellus ac purus finibus dictum. Praesent suscipit arcu eget tortor convallis fringilla. Nunc at pulvinar ipsum. Morbi molestie volutpat consectetur.
+            "
+            android:id="@+id/textView8" />
+    </ScrollView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Previous Task"
+            android:id="@+id/button"
+            android:layout_marginTop="20dp" />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Next Task"
+            android:id="@+id/button2"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+</LinearLayout>

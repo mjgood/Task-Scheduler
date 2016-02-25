@@ -1,0 +1,30 @@
+<!-- ##################################################################
+Michael Good, mjg5632
+2/11/2016, CMPSC475
+################################################################## !-->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.razzaliaxindiferous.taskscheduler.MainActivity">
+
+    <!-- daily task view date !-->
+    <item android:id="@+id/date_actionButton"
+        android:orderInCategory="101"
+        android:title="2/18/2016"
+        app:showAsAction="always|withText"/>
+    <!-- add task !-->
+    <item android:id="@+id/addTask_actionButton"
+        android:orderInCategory="102"
+        android:title="+"
+        android:icon="@mipmap/task_add"
+        app:showAsAction="always|withText"/>
+    <!-- settings !-->
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Settings"
+    app:showAsAction="never" />
+</menu>
+
+    <!-- android:title="@string/action_settings" -->

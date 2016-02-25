@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Task Scheduler</string>
+    <string name="title_activity_week_view">WeekView</string>
+    <string name="title_activity_task_view">TaskView</string>
+    <string name="title_navigation_sidebar">Navigation Sidebar</string>
+    <string name="title_activity_task_edit">Edit Task</string>
+</resources>
