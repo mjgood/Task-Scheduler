@@ -64,6 +64,20 @@ public class DailyTaskList extends AppCompatActivity {
     //########################################################################
 
     //User selects the Create Task button in title bar
+    public void addTask(View view) {
+        if (TaskDB == null) {
+            Toast.makeText(this, "Try again in a few seconds.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            ContentValues values = new ContentValues();
+            values.put("subject", "Dummy Subject");
+            values.put("description", "This is a dummy task created to hold things together");
+
+            long newRowId = TaskDB.insert("tasks", null, values);
+        }
+    }
+
+    //User selects the Create Task button in title bar
     public void viewTask(View view)
     {
         Intent intent = new Intent(this, TaskView.class);
