@@ -6,6 +6,7 @@
 
 package com.example.razzaliaxindiferous.taskscheduler;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,11 +20,21 @@ import android.content.*;
 import android.widget.*;
 
 public class DailyTaskList extends AppCompatActivity {
+    SQLiteDatabase TaskDB;
+    long currentRow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_task_list);
+
+        Database.getInstance(this).getWritableDatabase(new Database.OnDBReadyListener(){
+            @Override
+            public void onDBReady(SQLiteDatabase TaskDB){
+                DailyTaskList.this.TaskDB=TaskDB;
+            }
+        });
+
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
     }
