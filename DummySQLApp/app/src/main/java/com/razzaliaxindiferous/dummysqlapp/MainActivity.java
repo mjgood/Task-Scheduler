@@ -1,3 +1,9 @@
+//######################################################################
+// Main Activity
+//  Project: SQLite Demonstration
+//  Author: Thomas Singleton, 2/25/2016
+//######################################################################
+
 package com.razzaliaxindiferous.dummysqlapp;
 
 import android.content.ContentValues;
@@ -35,6 +41,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // C.REATE
+    //######################################################################
+    public void create(View v){
+        if(dailyTaskDB==null){
+            Toast.makeText(this, "Try again in a few seconds", Toast.LENGTH_SHORT).show();
+        }else{
+            ContentValues values = new ContentValues();
+            values.put("subject","Example");
+            values.put("completion_status", 0);
+            values.put("description","This is a test description");
+
+            last_id=dailyTaskDB.insert("tasks",null, values);
+
+            if(last_id==0){
+                Toast.makeText(this, "Must read table before updating", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "Inserted Row " + last_id, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    // R.EAD
+    //######################################################################
     public void read(View v){
         if(dailyTaskDB==null){
             Toast.makeText(this, "Try again in a few seconds", Toast.LENGTH_SHORT).show();
@@ -69,26 +98,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void create(View v){
-        if(dailyTaskDB==null){
-            Toast.makeText(this, "Try again in a few seconds", Toast.LENGTH_SHORT).show();
-        }else{
-            ContentValues values = new ContentValues();
-            values.put("subject","Example");
-            values.put("completion_status", 0);
-            values.put("description","This is a test description");
-
-            last_id=dailyTaskDB.insert("tasks",null, values);
-
-            if(last_id==0){
-                Toast.makeText(this, "Must read table before updating", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this, "Inserted Row " + last_id, Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
-
+    // U.PDATE
+    //######################################################################
     public void update(View v) {
         if (dailyTaskDB == null) {
             Toast.makeText(this, "Try again in a few seconds", Toast.LENGTH_SHORT).show();
@@ -109,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // D.ELETE
+    //######################################################################
     public void delete(View v) {
         if (dailyTaskDB == null) {
             Toast.makeText(this, "Try again in a few seconds", Toast.LENGTH_SHORT).show();

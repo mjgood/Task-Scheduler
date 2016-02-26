@@ -1,3 +1,13 @@
+//######################################################################
+// Task DB
+//  Project: SQLite Demonstration
+//  Author: Michael Good, 2/25/2016
+//
+//      This file was directly copied from the SQLite Database we are
+//    implemeneting for the Task Scheduler project. There are several
+//    references to this throughout.
+//######################################################################
+
 package com.razzaliaxindiferous.dummysqlapp;
 
         import android.content.Context;
@@ -5,9 +15,6 @@ package com.razzaliaxindiferous.dummysqlapp;
         import android.database.sqlite.SQLiteOpenHelper;
         import android.os.AsyncTask;
 
-/**
- * Created by Razzalia Xindiferous on 2/25/2016.
- */
 public class TaskDB extends SQLiteOpenHelper {
 
     // Constructor
