@@ -20,38 +20,44 @@
         <Button
             android:layout_width="128dp"
             android:layout_height="64dp"
-            android:text="CREATE"
+            android:text="@string/create_button"
             android:onClick="create"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:id="@+id/create_button" />
         <Button
             android:layout_width="128dp"
             android:layout_height="64dp"
-            android:text="UPDATE"
+            android:text="@string/update_button"
             android:onClick="update"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:id="@+id/update_button" />
         <Button
             android:layout_width="128dp"
             android:layout_height="64dp"
-            android:text="READ"
+            android:text="@string/read_button"
             android:onClick="read"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:id="@+id/read_button" />
         <Button
             android:layout_width="128dp"
             android:layout_height="64dp"
-            android:text="DELETE"
+            android:text="@string/delete_button"
             android:onClick="delete"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:id="@+id/delete_button" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Database currently has:"
-            android:layout_margin="8dp"/>
+            android:text="@string/database_text_view"
+            android:layout_margin="8dp"
+            android:id="@+id/database_text_view" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(Click a button to interact with the database)"
-            android:layout_margin="8dp"/>
+            android:text="@string/interaction_text_view"
+            android:layout_margin="8dp"
+            android:id="@+id/interaction_text_view" />
     </LinearLayout>
 
 

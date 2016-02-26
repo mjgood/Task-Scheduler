@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">DummySQLApp</string>
     <string name="action_settings">Settings</string>
+    <string name="create_button">CREATE</string>
+    <string name="update_button">UPDATE</string>
+    <string name="read_button">READ</string>
+    <string name="delete_button">DELETE</string>
+    <string name="database_text_view">Database currently has:</string>
+    <string name="interaction_text_view">(Click a button to interact with the database)</string>
 </resources>

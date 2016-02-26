@@ -8,25 +8,25 @@ package com.razzaliaxindiferous.dummysqlapp;
 /**
  * Created by Razzalia Xindiferous on 2/25/2016.
  */
-public class Task_DB_Maybe extends SQLiteOpenHelper {
+public class TaskDB extends SQLiteOpenHelper {
 
     // Constructor
     //######################################################################
-    private Task_DB_Maybe(Context context) { //Only way to instantiate this class is through getInstance!
+    private TaskDB(Context context) { //Only way to instantiate this class is through getInstance!
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
 
     // Variables
     //######################################################################
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "tasks.db";
-    private static Task_DB_Maybe theDb;
+    private static TaskDB theDb;
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE tasks(" +
-                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "SUBJECT TEXT NOT NULL," +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "subject TEXT NOT NULL," +
                     "completion_status TINYINT," +
                     "completion_percentage TINYINT," +
                     "repeat_id INTEGER," +
@@ -64,9 +64,9 @@ public class Task_DB_Maybe extends SQLiteOpenHelper {
         public void onDBReady(SQLiteDatabase theDB);
     }
 
-    public static synchronized Task_DB_Maybe getInstance(Context context) {
+    public static synchronized TaskDB getInstance(Context context) {
         if (theDb == null) { // Make sure that we do not leak Activity's context
-            theDb = new Task_DB_Maybe(context.getApplicationContext());
+            theDb = new TaskDB(context.getApplicationContext());
         }
 
         return theDb;
