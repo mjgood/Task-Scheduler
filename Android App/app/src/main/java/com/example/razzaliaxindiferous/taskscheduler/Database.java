@@ -1,3 +1,13 @@
+//######################################################################
+// Task DB
+//  Project: SQLite Demonstration
+//  Author: Michael Good, 2/25/2016
+//
+//      This file was directly copied from the SQLite Database we are
+//    implemeneting for the Task Scheduler project. There are several
+//    references to this throughout.
+//######################################################################
+
 package com.example.razzaliaxindiferous.taskscheduler;
 
 import android.content.Context;
@@ -5,9 +15,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 
-/**
- * Created by Razzalia Xindiferous on 2/25/2016.
- */
 public class Database extends SQLiteOpenHelper {
 
     // Constructor
@@ -40,7 +47,6 @@ public class Database extends SQLiteOpenHelper {
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS tasks";
-
 
     // Required Methods
     //######################################################################

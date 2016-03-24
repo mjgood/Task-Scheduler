@@ -12,8 +12,9 @@ Michael Good, mjg5632
     <item android:id="@+id/date_actionButton"
         android:orderInCategory="101"
         android:title="2/18/2016"
-        app:showAsAction="always|withText"/>
-    <!-- add task !-->
+        app:showAsAction="always|withText"
+        android:onClick="pickDate"/>
+ <!-- add task !-->
     <item android:id="@+id/addTask_actionButton"
         android:orderInCategory="102"
         android:title="+"

@@ -2,46 +2,46 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.1.1_e58c85705b6ee51851dcd7648792c45bcde48809.jar" />
-    </item>
-    <item
-        jar="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.1.1_49716b9d54c91a0377d8d119b971c2436c20545d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.1.1_e4be2ca9fd5fc2faab7f6f6d94b76c98ff29c65c.jar" />
-    </item>
-    <item
-        jar="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1_83cf62d8bb300e8451c69295dd4b8a87e9a9b114.jar" />
-    </item>
-    <item
-        jar="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
         sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.1.1_42bd7adc90adf7775334f79c10f2e756d1a17398.jar" />
+        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.1.1_a5e4b7031c9fce5832955a933910de8b7f76c6ea.jar" />
+    </item>
+    <item
+        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.1.1_5b5fc2c896a3221dfa2350725f361cdda9be1f01.jar" />
+    </item>
+    <item
+        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.1.1_9ab7e2e65d9d4de75866a2bdacc6f5132f8e5a53.jar" />
+    </item>
+    <item
+        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1_64d81a2426a8f1c5a34795dd3d340f52ba2fc96e.jar" />
+    </item>
+    <item
+        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.1.1_90d8f45051af27356b48084ef17a2ced0a8d16d3.jar" />
     </item>
     <item
         jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
         jumboMode="false"
         revision="23.0.2"
         sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="C:\Users\Razzalia Xindiferous\AndroidStudioProjects\TaskScheduler\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1_6ededcc9b39f46fbcdd6efbd1a4d51bb6afd2a15.jar" />
+        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1_6ededcc9b39f46fbcdd6efbd1a4d51bb6afd2a15.jar" />
     </item>
 
 </items>
