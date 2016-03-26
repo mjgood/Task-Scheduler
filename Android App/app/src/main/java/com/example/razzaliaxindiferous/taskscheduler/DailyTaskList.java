@@ -41,13 +41,9 @@ public class DailyTaskList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_task_list);
 
-        Database.getInstance(this).getWritableDatabase(new Database.OnDBReadyListener() {
-            @Override
-            public void onDBReady(SQLiteDatabase TaskDB) {
-                DailyTaskList.this.taskDB = TaskDB;
-            }
-        });
+        taskDB = Database.getInstance(this).getReadableDatabase();
 
+        readDailyTasks();
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
     }
@@ -107,7 +103,7 @@ public class DailyTaskList extends AppCompatActivity {
                             c.getString(1) + " : " +
                             c.getString(2) + " : " +
                             c.getString(3));
-                    ((ListView) findViewById(R.id.dailyTaskList)).addView(viewToAdd);
+                    //((ListView) findViewById(R.id.dailyTaskList)).addView(viewToAdd);
                 }
             }
         }
@@ -157,7 +153,7 @@ public class DailyTaskList extends AppCompatActivity {
             super(context);
 
             View.inflate(context, R.layout.daily_single_task, this);
-            tv = (TextView) findViewById(R.id.text);
+            tv = (TextView) findViewById(R.id.testTextView);
         }
 
         public void setText(String text) {
