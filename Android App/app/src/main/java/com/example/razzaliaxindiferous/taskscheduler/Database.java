@@ -26,14 +26,14 @@ public class Database extends SQLiteOpenHelper {
 
     // Variables
     //######################################################################
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "tasks.db";
     private static Database theDb;
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE tasks(" +
-                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "SUBJECT TEXT NOT NULL," +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "subject TEXT NOT NULL," +
                     "completion_status TINYINT," +
                     "completion_percentage TINYINT," +
                     "repeat_id INTEGER," +
@@ -96,4 +96,13 @@ public class Database extends SQLiteOpenHelper {
             listener.onDBReady(sqLiteDatabase);
         }
     }
+
+    /*public static class TaskDB extends SQLiteOpenHelper {
+        public interface OnDBReadyListener {
+            public void onDBReady(SQLiteDatabase theDB);
+        }
+
+        private static final int DATABASE_VERSION = 1;
+        private static final String DATABASE_NAME = "tasks.db";
+    }*/
 }

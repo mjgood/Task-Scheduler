@@ -8,9 +8,11 @@ package com.example.razzaliaxindiferous.taskscheduler;
 
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.app.LoaderManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.*;
@@ -26,24 +28,78 @@ import android.content.*;
 import android.widget.*;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import android.util.AttributeSet;
+import android.net.Uri;
 
-public class DailyTaskList extends AppCompatActivity {
+public class DailyTaskList extends AppCompatActivity implements
+                                            LoaderManager.LoaderCallbacks<Cursor>,
+                                            AdapterView.OnItemClickListener,
+                                            AdapterView.OnItemLongClickListener {
+    private SimpleCursorAdapter mAdapter;
+    boolean filtered = false;
+
     SQLiteDatabase taskDB;
     long currentRow;
     Calendar dateDisplay;
+
+    ArrayList<String> listItems=new ArrayList<String>();
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_task_list);
 
-        taskDB = Database.getInstance(this).getReadableDatabase();
+        setContentView(R.layout.content_daily_task_list);
+        if (savedInstanceState != null)
+            filtered = savedInstanceState.getBoolean("filtered");
 
-        readDailyTasks();
+        mAdapter = new SimpleCursorAdapter(this, R.layout.content_daily_task_list, null,
+                new String[]{"id", "subject", "description", "deadline_time"},
+                new int[] {R.id.txtContent}, 0);
+
+        mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                /*if (columnIndex == 2) {
+                    switch (cursor.getString(cursor.getColumnIndex("liked"))) {
+                        case "Y":
+                            ((ImageView) view).setImageResource(
+                                    R.drawable.ic_thumbs_up);
+                            view.setTag("Y");
+                            break;
+                        case "N":
+                            ((ImageView) view).setImageResource(
+                                    R.drawable.ic_thumbs_down);
+                            view.setTag("N");
+                            break;
+                        default:
+                            ((ImageView) view).setImageResource(
+                                    R.drawable.ic_question);
+                            view.setTag("?");
+                    }
+                    final long rowid = cursor.getLong(cursor.getColumnIndex("_id"));
+                    view.setOnClickListener(new View.OnClickListener() {
+                        long _rowid = rowid;
+                        public void onClick(View v) {
+                            toggleImage(_rowid, (ImageView) v);
+                        }
+                    });
+                    return true;
+                }*/
+                return false;
+            }
+        });
+
+        ListView listView = (ListView) findViewById(R.id.dailyTaskList);
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(this);
+        listView.setOnItemLongClickListener(this);
+        getLoaderManager().initLoader(1, null, this);
+
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
     }
@@ -71,16 +127,18 @@ public class DailyTaskList extends AppCompatActivity {
     }
 
     //########################################################################
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("filtered", filtered);
+    }
 
-    public void readDailyTasks()
-    {
-        if (taskDB==null){
-            Toast.makeText(this, "Try again in a few seconds", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            dateDisplay = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String where = null;
 
-            String[] columns = {"id", "subject", "deadline_time", "description"};
+        dateDisplay = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+
+        String[] columns = {"id", "subject", "deadline_time", "description"};
             /*String[] columns = {"id", "subject", "completion_status", "completion_percentage",
                     "start_time", "end_time", "deadline_time",
                     "estimated_time", "priority", "description"};*/
@@ -89,12 +147,51 @@ public class DailyTaskList extends AppCompatActivity {
                     + Integer.toString(dateDisplay.get(Calendar.MONTH)) + "-"
                     + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH));*/
 
-            String output;
-            String toSay;
+        String output;
+        String toSay;
 
-            Cursor c = taskDB.query("tasks", columns, null, null, null, null, null);
-            //Cursor c = taskDB.query("tasks", columns, selection, null, null, null, null);
-            //Cursor c = dailyTaskDB.query("tasks",columns, null, null, null, null, orderBy);
+        //Cursor c = taskDB.query("tasks", columns, null, null, null, null, null);
+        //Cursor c = taskDB.query("tasks", columns, selection, null, null, null, null);
+        //Cursor c = dailyTaskDB.query("tasks",columns, null, null, null, null, orderBy);
+
+        //INSERT REFERENCE TO CONTENT PROVIDER
+        return new CursorLoader(this, DailyTaskContentProvider.CONTENT_URI,
+                new String[]{"id", "subject", "deadline_time", "description"}, where, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mAdapter.swapCursor(cursor);
+    }
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+                            long id) {
+        Intent intent = new Intent(this, DailyTaskList.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
+                                   long id) {
+        Intent intent = new Intent(this, DailyTaskList.class);
+        startActivity(intent);
+        return true;
+    }
+
+    //########################################################################
+
+    /*public void readDailyTasks()
+    {
+        if (taskDB==null){
+            Toast.makeText(this, "Try again in a few seconds", Toast.LENGTH_SHORT).show();
+        }
+        else {
+
 
             if (c.moveToFirst()) {
                 while (!c.isAfterLast()) {
@@ -107,7 +204,7 @@ public class DailyTaskList extends AppCompatActivity {
                 }
             }
         }
-    }
+    }*/
 
     //User selects the Pick Date button in title bar
     public void pickDate(MenuItem item) {
@@ -117,20 +214,16 @@ public class DailyTaskList extends AppCompatActivity {
 
     //User selects the Create Task button in title bar
     public void addTask(MenuItem item) {
-        if (taskDB == null) {
-            Toast.makeText(this, "Try again in a few seconds.", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            dateDisplay = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
-            ContentValues values = new ContentValues();
-            values.put("subject", "Dummy Subject");
-            values.put("description", "This is a dummy task created to hold things together");
-            values.put("deadline_time", Integer.toString(dateDisplay.get(Calendar.YEAR)) + "-"
-                    + Integer.toString(dateDisplay.get(Calendar.MONTH)) + "-"
-                    + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
+        ContentResolver cr = getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put("subject", "Dummy Subject");
+        values.put("description", "This is a dummy task created to hold things together");
+        values.put("deadline_time", Integer.toString(dateDisplay.get(Calendar.YEAR)) + "-"
+                + Integer.toString(dateDisplay.get(Calendar.MONTH)) + "-"
+                + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
 
-            long newRowId = taskDB.insert("tasks", null, values);
-        }
+        cr.insert(DailyTaskContentProvider.CONTENT_URI, values);
+        finish();
     }
 
     //User selects the Create Task button in title bar
@@ -147,7 +240,7 @@ public class DailyTaskList extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static class DailyTaskView extends LinearLayout {
+    /*public static class DailyTaskView extends LinearLayout {
         private TextView tv;
         public DailyTaskView(Context context) {
             super(context);
@@ -159,10 +252,12 @@ public class DailyTaskList extends AppCompatActivity {
         public void setText(String text) {
             tv.setText(text);
         }
-    }
+    }*/
+
+    //########################################################################
 
     //Date Picker
-    public static class DatePickerFragment extends DialogFragment
+    /*public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -179,6 +274,124 @@ public class DailyTaskList extends AppCompatActivity {
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
+        }
+    }*/
+
+    //########################################################################
+    //########################################################################
+    //########################################################################
+
+    //Content Provider
+    public static class DailyTaskContentProvider extends ContentProvider {
+        private Database taskDB;
+
+        private static final String AUTHORITY = "com.example.razzaliaxindiferous.taskscheduler";
+        private static final String BASE_PATH = "tasks";
+        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" +
+                BASE_PATH);
+
+        private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        private static final int TASKS = 1;
+        private static final int TASKS_ID = 2;
+        static {
+            uriMatcher.addURI(AUTHORITY, BASE_PATH, TASKS);
+            uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", TASKS_ID);
+        }
+
+        @Override
+        public boolean onCreate() {
+            taskDB = Database.getInstance(getContext());
+            return true;
+        }
+
+        @Override
+        public Uri insert(@NonNull Uri uri, ContentValues values) {
+            long id;
+            SQLiteDatabase db = taskDB.getWritableDatabase();
+            switch (uriMatcher.match(uri)) {
+                case TASKS:
+                    id = db.insert("tasks", null, values);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown URI: " + uri);
+            }
+            getContext().getContentResolver().notifyChange(uri, null);
+            return Uri.parse(BASE_PATH + "/" + id);
+        }
+
+        @Override
+        public Cursor query(@NonNull Uri uri, String[] projection, String selection,
+                            String[] selectionArgs, String sortOrder) {
+            SQLiteDatabase db = taskDB.getReadableDatabase();
+            Cursor cursor;
+            switch (uriMatcher.match(uri)) {
+                case TASKS:
+                    cursor = db.query("tasks", projection, selection,
+                            selectionArgs, null, null, sortOrder);
+                    break;
+                case TASKS_ID:
+                    cursor = db.query("tasks", projection,
+                            appendIdToSelection(selection, uri.getLastPathSegment()),
+                            selectionArgs, null, null, sortOrder);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown URI: " + uri);
+            }
+            cursor.setNotificationUri(getContext().getContentResolver(), uri);
+            return cursor;
+        }
+
+        @Override
+        public int update(@NonNull Uri uri, ContentValues values, String selection,
+                          String[] selectionArgs) {
+            int count;
+            SQLiteDatabase db = taskDB.getWritableDatabase();
+            switch (uriMatcher.match(uri)){
+                case TASKS:
+                    count = db.update("tasks", values, selection, selectionArgs);
+                    break;
+                case TASKS_ID:
+                    count = db.update("tasks", values,
+                            appendIdToSelection(selection, uri.getLastPathSegment()),
+                            selectionArgs);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown URI " + uri );
+            }
+            getContext().getContentResolver().notifyChange(uri, null);
+            return count;
+        }
+
+        @Override
+        public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
+            int count;
+            SQLiteDatabase db = taskDB.getWritableDatabase();
+            switch (uriMatcher.match(uri)){
+                case TASKS:
+                    count = db.delete("tasks", selection, selectionArgs);
+                    break;
+                case TASKS_ID:
+                    count = db.delete("tasks",
+                            appendIdToSelection(selection, uri.getLastPathSegment()),
+                            selectionArgs);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown URI " + uri);
+            }
+            getContext().getContentResolver().notifyChange(uri, null);
+            return count;
+        }
+
+        @Override
+        public String getType(@NonNull Uri uri) {
+            return null;
+        }
+        private String appendIdToSelection(String selection, String sId) {
+            int id = Integer.valueOf(sId);
+            if (selection == null || selection.trim().equals(""))
+                return "_ID = " + id;
+            else
+                return selection + " AND _ID = " + id;
         }
     }
 }

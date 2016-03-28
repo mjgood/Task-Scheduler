@@ -41,6 +41,12 @@
             android:name=".NavigationSidebar"
             android:label="@string/title_navigation_sidebar"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <provider
+            android:authorities="com.example.razzaliaxindiferous.taskscheduler"
+            android:multiprocess="true"
+            android:enabled="true"
+            android:exported="false"
+            android:name="com.example.razzaliaxindiferous.taskscheduler.DailyTaskList$DailyTaskContentProvider"></provider>
     </application>
 
 </manifest>
