@@ -32,21 +32,21 @@
         <activity
             android:name=".TaskView"
             android:label="@string/title_activity_task_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TaskEdit"
             android:label="@string/title_activity_task_edit"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NavigationSidebar"
             android:label="@string/title_navigation_sidebar"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <provider
+            android:name=".DailyTaskContentProvider"
             android:authorities="com.example.razzaliaxindiferous.taskscheduler"
-            android:multiprocess="true"
             android:enabled="true"
-            android:exported="false"
-            android:name="com.example.razzaliaxindiferous.taskscheduler.DailyTaskList$DailyTaskContentProvider"></provider>
+            android:exported="true"></provider>
     </application>
 
 </manifest>
