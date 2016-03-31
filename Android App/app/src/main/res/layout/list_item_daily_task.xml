@@ -3,13 +3,34 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
-    <TextView
-        android:id="@+id/txtContent"
-        android:focusable="false"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Hello World!"
+    android:padding="10dp"
+    android:layout_margin="5dp"
+    android:background="@color/colorGray">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutDailyTaskInformationheader">
+        <TextView
+            android:id="@+id/txtContent"
+            android:focusable="false"
+            android:text="Hello World!"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtDeadline"
+            android:gravity="right"
+            android:focusable="false"
+            android:text="Hadssad!"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <TextView
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Text"
+        android:id="@+id/txtDescription"
+        android:layout_below="@id/layoutDailyTaskInformationheader"/>
 </RelativeLayout>

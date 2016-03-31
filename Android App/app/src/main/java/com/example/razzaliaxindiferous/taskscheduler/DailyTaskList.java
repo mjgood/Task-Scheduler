@@ -59,9 +59,9 @@ public class DailyTaskList extends AppCompatActivity implements
         if (savedInstanceState != null)
             filtered = savedInstanceState.getBoolean("filtered");
 
-        mAdapter = new SimpleCursorAdapter(this, R.layout.content_daily_task_list, null,
-                new String[]{"_id", "subject", "description", "deadline_time"},
-                new int[]{R.id.txtContent}, 0);
+        mAdapter = new SimpleCursorAdapter(this, R.layout.list_item_daily_task, null,
+                new String[]{"subject", "description", "deadline_time"},
+                new int[]{R.id.txtContent, R.id.txtDescription, R.id.txtDeadline}, 0);
 
         mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
