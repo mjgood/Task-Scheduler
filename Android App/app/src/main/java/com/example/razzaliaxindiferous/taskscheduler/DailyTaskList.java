@@ -60,7 +60,7 @@ public class DailyTaskList extends AppCompatActivity implements
             filtered = savedInstanceState.getBoolean("filtered");
 
         mAdapter = new SimpleCursorAdapter(this, R.layout.content_daily_task_list, null,
-                new String[]{"id", "subject", "description", "deadline_time"},
+                new String[]{"_id", "subject", "description", "deadline_time"},
                 new int[]{R.id.txtContent}, 0);
 
         mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
@@ -139,7 +139,7 @@ public class DailyTaskList extends AppCompatActivity implements
 
         dateDisplay = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
 
-        String[] columns = {"id", "subject", "deadline_time", "description"};
+        String[] columns = {"_id", "subject", "deadline_time", "description"};
             /*String[] columns = {"id", "subject", "completion_status", "completion_percentage",
                     "start_time", "end_time", "deadline_time",
                     "estimated_time", "priority", "description"};*/
