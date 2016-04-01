@@ -9,9 +9,27 @@
 
     <!-- TO-DO: TURN THIS INTO A LISTVIEW !-->
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:id="@+id/dailyTaskList"
-        android:background="@color/colorGray" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:id="@+id/dailyTaskList"
+            android:background="@color/colorGray" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Navigation Sidebar"
+            android:onClick="swipeButton"
+            />
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

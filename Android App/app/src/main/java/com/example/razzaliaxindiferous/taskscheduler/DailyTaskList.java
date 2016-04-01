@@ -54,6 +54,10 @@ public class DailyTaskList extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_task_list);
+        dateDisplay = new GregorianCalendar(
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
         setContentView(R.layout.content_daily_task_list);
         if (savedInstanceState != null)
@@ -135,29 +139,30 @@ public class DailyTaskList extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String where = null;
-
-        dateDisplay = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
-
         String[] columns = {"_id", "subject", "deadline_time", "description"};
             /*String[] columns = {"id", "subject", "completion_status", "completion_percentage",
                     "start_time", "end_time", "deadline_time",
-                    "estimated_time", "priority", "description"};*/
-            /*String selection = "date(deadline_time) = "
-                    + Integer.toString(dateDisplay.get(Calendar.YEAR)) + "-"
+                    "estimated_time", "priority", "description"}*/
+        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.YEAR)));
+        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.MONTH)));
+        Log.d("Where", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setCalendar(dateDisplay);
+        String dateFormatted = sdf.format(dateDisplay.getTime());
+
+        String where = null;
+        //String where = "deadline_time = Datetime(" + dateDisplay + ")";
+                    /*Integer.toString(dateDisplay.get(Calendar.YEAR)) + "-"
                     + Integer.toString(dateDisplay.get(Calendar.MONTH)) + "-"
-                    + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH));*/
-
-        String output;
-        String toSay;
-
-        //Cursor c = taskDB.query("tasks", columns, null, null, null, null, null);
-        //Cursor c = taskDB.query("tasks", columns, selection, null, null, null, null);
-        //Cursor c = dailyTaskDB.query("tasks",columns, null, null, null, null, orderBy);
+                    + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)) + " 00:00:00')"
+                + " and deadline_time <= Datetime('" + Integer.toString(dateDisplay.get(Calendar.YEAR)) + "-"
+                + Integer.toString(dateDisplay.get(Calendar.MONTH)) + "-"
+                + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)) + " 23:59:59')";*/
 
         //INSERT REFERENCE TO CONTENT PROVIDER
         return new CursorLoader(this, DailyTaskContentProvider.CONTENT_URI,
-                new String[]{"_id", "subject", "deadline_time", "description"}, where, null, null);
+                columns, where, null, null);
     }
 
     @Override
@@ -191,27 +196,6 @@ public class DailyTaskList extends AppCompatActivity implements
 
     //########################################################################
 
-    /*public void readDailyTasks()
-    {
-        if (taskDB==null){
-            Toast.makeText(this, "Try again in a few seconds", Toast.LENGTH_SHORT).show();
-        }
-        else {
-
-
-            if (c.moveToFirst()) {
-                while (!c.isAfterLast()) {
-                    DailyTaskView viewToAdd = new DailyTaskView(this);
-                    viewToAdd.setText(c.getString(0) + " : " +
-                            c.getString(1) + " : " +
-                            c.getString(2) + " : " +
-                            c.getString(3));
-                    //((ListView) findViewById(R.id.dailyTaskList)).addView(viewToAdd);
-                }
-            }
-        }
-    }*/
-
     //User selects the Pick Date button in title bar
     public void pickDate(MenuItem item) {
         //DialogFragment newFragment = new DatePickerFragment();
@@ -224,9 +208,16 @@ public class DailyTaskList extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put("subject", "Dummy Subject");
         values.put("description", "This is a dummy task created to hold things together");
-        values.put("deadline_time", Integer.toString(dateDisplay.get(Calendar.YEAR)) + "-"
-                + Integer.toString(dateDisplay.get(Calendar.MONTH)) + "-"
-                + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
+        Log.d("Info", Integer.toString(dateDisplay.get(Calendar.YEAR)));
+        Log.d("Info", Integer.toString(dateDisplay.get(Calendar.MONTH)));
+        Log.d("Info", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setCalendar(dateDisplay);
+        String dateFormatted = sdf.format(dateDisplay.getTime());
+        Log.d("Info", dateFormatted);
+
+        values.put("deadline_time", dateFormatted);
 
         cr.insert(DailyTaskContentProvider.CONTENT_URI, values);
         finish();
@@ -243,41 +234,4 @@ public class DailyTaskList extends AppCompatActivity implements
         Intent intent = new Intent(this, NavigationSidebar.class);
         startActivity(intent);
     }
-
-    /*public static class DailyTaskView extends LinearLayout {
-        private TextView tv;
-        public DailyTaskView(Context context) {
-            super(context);
-
-            View.inflate(context, R.layout.daily_single_task, this);
-            tv = (TextView) findViewById(R.id.testTextView);
-        }
-
-        public void setText(String text) {
-            tv.setText(text);
-        }
-    }*/
-
-    //########################################################################
-
-    //Date Picker
-    /*public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date chosen by the user
-        }
-    }*/
 }
