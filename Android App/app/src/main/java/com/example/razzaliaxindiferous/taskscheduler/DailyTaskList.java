@@ -106,6 +106,7 @@ public class DailyTaskList extends AppCompatActivity implements
         getLoaderManager().initLoader(1, null, this);
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
     }
 
@@ -220,7 +221,6 @@ public class DailyTaskList extends AppCompatActivity implements
         values.put("deadline_time", dateFormatted);
 
         cr.insert(DailyTaskContentProvider.CONTENT_URI, values);
-        finish();
     }
 
     //User selects the Create Task button in title bar
