@@ -4,4 +4,26 @@
     <string name="title_activity_task_view">TaskView</string>
     <string name="title_navigation_sidebar">Navigation Sidebar</string>
     <string name="title_activity_task_edit">Edit Task</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="pref_name">displayName</string>
+    <string name="pref_name_title">Display Name</string>
+    <string name="pref_name_summary">Sets name to display in app</string>
+    <string name="pref_name_default">Android User</string>
+    <string name="pref_rdb">remoteDB</string>
+    <string name="pref_rdb_summary">Connect to a remote database for tasks</string>
+    <string name="pref_rdb_uri_title">Remote Database URI</string>
+    <string name="pref_rdb_uri">remoteDB_uri</string>
+    <string name="pref_rdb_uri_summary">IP or URI of remote database</string>
+    <string name="pref_drb_uri_default"></string>
+    <string name="pref_rdb_port">remoteDB_port</string>
+    <string name="pref_rdb_port_title">Port</string>
+    <string name="pref_rdb_port_summary">The port opened to access remote database</string>
+    <string name="pref_rdb_port_default">3306</string>
+
+    <!-- Sideview Text -->
+    <string name="settings_text">Preferences</string>
+
 </resources>

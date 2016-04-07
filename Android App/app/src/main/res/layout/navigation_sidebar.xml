@@ -63,8 +63,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Force Sync"
+            android:id="@+id/navigationForceSync"
             android:textColor="@color/colorWhite"
             android:layout_alignParentBottom="true"/>
+        <!-- Settings -->
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:paddingTop="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_text"
+            android:id="@+id/navigationSettings"
+            android:layout_below="@id/navigationForceSync"
+            android:textColor="@color/colorWhite"
+            android:onClick="viewSettings"/>
     </RelativeLayout>
 
 </RelativeLayout>

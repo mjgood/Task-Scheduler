@@ -46,7 +46,11 @@
             android:name=".DailyTaskContentProvider"
             android:authorities="com.example.razzaliaxindiferous.taskscheduler"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

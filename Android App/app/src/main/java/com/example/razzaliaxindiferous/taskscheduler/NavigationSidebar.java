@@ -66,4 +66,11 @@ public class NavigationSidebar extends AppCompatActivity {
         Intent intent = new Intent(this, MonthView.class);
         startActivity(intent);
     }
+
+    //User swipes the settings view
+    public void viewSettings(View view)
+    {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 }
