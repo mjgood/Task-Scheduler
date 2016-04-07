@@ -2,46 +2,74 @@
 <items version="2" >
 
     <item
-        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
         revision="23.0.2"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.1.1_5b5fc2c896a3221dfa2350725f361cdda9be1f01.jar" />
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_44a5f7c75e5bd1404e20b407c062c6a1a8f18c5d\classes.dex" />
     </item>
     <item
-        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
-        jumboMode="false"
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
         revision="23.0.2"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1_64d81a2426a8f1c5a34795dd3d340f52ba2fc96e.jar" />
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_310225f5ea8538031591fb88f4ea391fb8265375\classes.dex" />
     </item>
     <item
-        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
         revision="23.0.2"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.1.1_a5e4b7031c9fce5832955a933910de8b7f76c6ea.jar" />
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_82db663b1ee7a16688787d10f9b2d03172dbf3ef\classes.dex" />
     </item>
     <item
-        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
         revision="23.0.2"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.1.1_9ab7e2e65d9d4de75866a2bdacc6f5132f8e5a53.jar" />
+        sha1="7ab01e9f44a5cc77e16715233048cb436ba56d62">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c22b6821e7b49898e280cfca1e6f875e3498f89a\classes.dex" />
     </item>
     <item
-        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
-        jumboMode="false"
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
         revision="23.0.2"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1_6ededcc9b39f46fbcdd6efbd1a4d51bb6afd2a15.jar" />
+        sha1="debf30ce0a7560396b6235edef77e447006454c2">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.3.0_7641c0a6af45b4922f7a9705265e1bf6c65d5d00\classes.dex" />
     </item>
     <item
-        jar="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\design\23.3.0\jars\classes.jar"
+        jumboMode="true"
         revision="23.0.2"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="B:\GitHub\TaskScheduler\Task-Scheduler\Android App\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.1.1_90d8f45051af27356b48084ef17a2ced0a8d16d3.jar" />
+        sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.3.0_8fa2d0e8eab1433ef7ca4c980e2accc9fd1027bd\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_12abe5fddd8ff8232537ca77d08ef6144a1c10b9\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="96ff3d9530269dfdc3b7af445d260a3cc6f3d063">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_678f13fc63067d9eb68e27d34de08cedc456ecc8\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_9aaa1d6cb50e7b57bab2f96a1e810bde6e9a0e22\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Tom\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_1f93a19033c30463e043a1d55d18b7573f684199\classes.dex" />
     </item>
 
 </items>

@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:text="@string/settings_text"
             android:id="@+id/navigationSettings"
-            android:layout_below="@id/navigationForceSync"
+            android:layout_below="@id/navigationViewMonthly"
             android:textColor="@color/colorWhite"
             android:onClick="viewSettings"/>
     </RelativeLayout>

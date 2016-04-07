@@ -17,7 +17,7 @@
     <string name="pref_rdb_uri_title">Remote Database URI</string>
     <string name="pref_rdb_uri">remoteDB_uri</string>
     <string name="pref_rdb_uri_summary">IP or URI of remote database</string>
-    <string name="pref_drb_uri_default"></string>
+    <string name="pref_rdb_uri_default"></string>
     <string name="pref_rdb_port">remoteDB_port</string>
     <string name="pref_rdb_port_title">Port</string>
     <string name="pref_rdb_port_summary">The port opened to access remote database</string>
