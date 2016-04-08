@@ -23,7 +23,7 @@ Michael Good, mjg5632
         app:showAsAction="always|withText"/>
     <!-- settings !-->
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/menu_settings"
         android:orderInCategory="100"
         android:title="Settings"
     app:showAsAction="never" />

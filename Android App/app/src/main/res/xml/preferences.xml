@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:key="@string/pref_rdb"
-        android:title="@string/pref_rdb"
-        android:summary="@string/pref_rdb_summary"
-        android:defaultValue="false" />
 
-    <EditTextPreference
-        android:dependency="@string/pref_rdb"
-        android:key="@string/pref_rdb_uri"
-        android:title="@string/pref_rdb_uri_title"
-        android:summary="@string/pref_rdb_uri_summary"
-        android:defaultValue="@string/pref_rdb_uri_default" />
+    <PreferenceCategory
+        android:title="@string/pref_rdb_category">
+        <CheckBoxPreference
+            android:key="@string/pref_rdb"
+            android:title="@string/pref_rdb"
+            android:summary="@string/pref_rdb_summary"
+            android:defaultValue="false" />
 
-    <EditTextPreference
-        android:dependency="@string/pref_rdb"
-        android:key="@string/pref_rdb_port"
-        android:title="@string/pref_rdb_port_title"
-        android:summary="@string/pref_rdb_port_summary"
-        android:defaultValue="@string/pref_rdb_port_default"
-        android:inputType="number" />
+        <EditTextPreference
+            android:dependency="@string/pref_rdb"
+            android:key="@string/pref_rdb_uri"
+            android:title="@string/pref_rdb_uri_title"
+            android:summary="@string/pref_rdb_uri_summary"
+            android:defaultValue="@string/pref_rdb_uri_default" />
 
-    <EditTextPreference
-        android:key="@string/pref_name"
-        android:title="@string/pref_name_title"
-        android:summary="@string/pref_name_summary"
-        android:defaultValue="@string/pref_name_default" />
+        <EditTextPreference
+            android:dependency="@string/pref_rdb"
+            android:key="@string/pref_rdb_port"
+            android:title="@string/pref_rdb_port_title"
+            android:summary="@string/pref_rdb_port_summary"
+            android:defaultValue="@string/pref_rdb_port_default"
+            android:inputType="number" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/personal_settings_category" >
+        <EditTextPreference
+            android:key="@string/pref_name"
+            android:title="@string/pref_name_title"
+            android:summary="@string/pref_name_summary"
+            android:defaultValue="@string/pref_name_default" />
+    </PreferenceCategory>
 </PreferenceScreen>

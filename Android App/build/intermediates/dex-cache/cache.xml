@@ -26,7 +26,7 @@
         jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="7ab01e9f44a5cc77e16715233048cb436ba56d62">
+        sha1="633d8861c39e14be61a630aa64bceb1584f89cfd">
         <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c22b6821e7b49898e280cfca1e6f875e3498f89a\classes.dex" />
     </item>
     <item
@@ -54,7 +54,7 @@
         jar="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="96ff3d9530269dfdc3b7af445d260a3cc6f3d063">
+        sha1="962f305d3ef167f6207d6ec965aea571de3579cd">
         <dex dex="C:\Users\Tom\Documents\GitHub\Task-Scheduler\Android App\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_678f13fc63067d9eb68e27d34de08cedc456ecc8\classes.dex" />
     </item>
     <item

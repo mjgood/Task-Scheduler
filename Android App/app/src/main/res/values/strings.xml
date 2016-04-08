@@ -7,17 +7,21 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
-
+    <!-- Personal Settings -->
+    <string name="personal_settings_category">Personal Settings</string>
     <string name="pref_name">displayName</string>
     <string name="pref_name_title">Display Name</string>
     <string name="pref_name_summary">Sets name to display in app</string>
     <string name="pref_name_default">Android User</string>
+
+    <!-- Remote Database Settings -->
+    <string name="pref_rdb_category">Remote Database</string>
     <string name="pref_rdb">remoteDB</string>
     <string name="pref_rdb_summary">Connect to a remote database for tasks</string>
     <string name="pref_rdb_uri_title">Remote Database URI</string>
     <string name="pref_rdb_uri">remoteDB_uri</string>
     <string name="pref_rdb_uri_summary">IP or URI of remote database</string>
-    <string name="pref_rdb_uri_default"></string>
+    <string name="pref_rdb_uri_default"></string> <!--Defaults to Empty, at least for now -->
     <string name="pref_rdb_port">remoteDB_port</string>
     <string name="pref_rdb_port_title">Port</string>
     <string name="pref_rdb_port_summary">The port opened to access remote database</string>
