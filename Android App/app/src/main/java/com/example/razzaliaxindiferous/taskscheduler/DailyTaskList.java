@@ -199,7 +199,7 @@ public class DailyTaskList extends AppCompatActivity implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
-        Intent intent = new Intent(this, DailyTaskList.class);
+        Intent intent = new Intent(this, TaskEdit.class);
         startActivity(intent);
     }
 
@@ -221,25 +221,11 @@ public class DailyTaskList extends AppCompatActivity implements
 
     //User selects the Create Task button in title bar
     public void addTask(MenuItem item) {
-        ContentResolver cr = getContentResolver();
-        ContentValues values = new ContentValues();
-        values.put("subject", "Dummy Subject");
-        values.put("description", "This is a dummy task created to hold things together");
-        Log.d("Info", Integer.toString(dateDisplay.get(Calendar.YEAR)));
-        Log.d("Info", Integer.toString(dateDisplay.get(Calendar.MONTH)));
-        Log.d("Info", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setCalendar(dateDisplay);
-        String dateFormatted = sdf.format(dateDisplay.getTime());
-        Log.d("Info", dateFormatted);
-
-        values.put("deadline_time", dateFormatted);
-
-        cr.insert(DailyTaskContentProvider.CONTENT_URI, values);
+        Intent intent = new Intent(this, TaskEdit.class);
+        startActivity(intent);
     }
 
-    //User selects the Create Task button in title bar
+    //User selects a task
     public void viewTask(View view) {
         Intent intent = new Intent(this, TaskView.class);
         startActivity(intent);
