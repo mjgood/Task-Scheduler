@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -65,10 +67,38 @@ public class TaskEdit extends AppCompatActivity {
     public void doneEdit(View view)
     {ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
-        values.put("subject", "Dummy Subject2");
-        values.put("description", "This is a dummy task created to hold things together");
 
-        Calendar date = new GregorianCalendar(
+        /*
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "subject TEXT NOT NULL," +
+                "completion_status TINYINT," +
+                "completion_percentage TINYINT," +
+                "repeat_id INTEGER," +
+                "start_time DATETIME," +
+                "end_time DATETIME," +
+                "deadline_time DATETIME," +
+                "estimated_time DATETIME," +
+                "priority TINYINT," +
+                "repeat_conditions TEXT," +
+                "description TEXT)";
+        */
+
+        /*
+        values.put("_id", taskSelected);
+        values.put("subject", ((EditText)findViewById(R.id.editTaskName)).getText().toString());
+        //values.put("completion_status", Integer.parseInt(((EditText)findViewById(R.id.editTime)).getText().toString()));
+        values.put("completion_percentage", Integer.parseInt(((EditText)findViewById(R.id.editCompletion)).getText().toString()));
+        //values.put("repeat_id", (((CheckBox)findViewById(R.id.repeatCheckBox)).isChecked()) ? 1:0);
+        //values.put("start_time", ((EditText)findViewById(R.id.editTimeStart)).getText().toString());
+        //values.put("end_time", ((EditText)findViewById(R.id.editTimeEnd)).getText().toString());
+        //values.put("deadline_time", ((EditText)findViewById(R.id.editTime)).getText().toString());
+        //values.put("estimated_time", ((EditText)findViewById(R.id.editTime)).getText().toString());
+        values.put("priority", Integer.parseInt(((EditText)findViewById(R.id.editPriority)).getText().toString()));
+        //values.put("repeat_conditions", ((EditText)findViewById(R.id.???)).getText().toString());
+        values.put("description", ((EditText)findViewById(R.id.editDescription)).getText().toString());
+        */
+
+        /*Calendar date = new GregorianCalendar(
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
@@ -82,11 +112,12 @@ public class TaskEdit extends AppCompatActivity {
         String dateFormatted = sdf.format(date.getTime());
         Log.d("Info", dateFormatted);
 
-        values.put("deadline_time", dateFormatted);
+        values.put("deadline_time", dateFormatted);*/
 
-        //cr.insert(DailyTaskContentProvider.CONTENT_URI, values);
-
-        cr.update(DailyTaskContentProvider.CONTENT_URI, values, /* "_id=="+id */ null, null);
+        //if(cr.query(DailyTaskContentProvider.CONTENT_URI,null,"_id="+taskSelected,null,null)!=null)
+            cr.update(DailyTaskContentProvider.CONTENT_URI, values, "_id="+taskSelected, null);
+        //else
+            //cr.insert(DailyTaskContentProvider.CONTENT_URI, values);
 
         Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("itemSelected", taskSelected);

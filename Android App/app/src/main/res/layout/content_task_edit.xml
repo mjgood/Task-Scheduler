@@ -46,16 +46,16 @@
             android:layout_height="wrap_content"
             android:inputType="time"
             android:ems="10"
-            android:id="@+id/editTime"
-            android:text="Time-Start" />
+            android:id="@+id/editTimeStart"
+            android:hint="Time-Start" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="time"
             android:ems="10"
-            android:id="@+id/editText"
-            android:text="Time-End"
+            android:id="@+id/editTimeEnd"
+            android:hint="Time-End"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editPriority"
-            android:text="Priority" />
+            android:hint="Priority" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editCompletion"
-            android:text="Completion" />
+            android:hint="Completion" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,7 +122,7 @@
         android:ems="10"
         android:id="@+id/editDescription"
         android:layout_weight="0.72"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+        android:text="Lorem ipsum" />
 
     <LinearLayout
         android:orientation="horizontal"
