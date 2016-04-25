@@ -199,7 +199,11 @@ public class DailyTaskList extends AppCompatActivity implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
-        Intent intent = new Intent(this, TaskEdit.class);
+        ContentValues values = new ContentValues();
+        int idSelected = (Integer)values.get("_id");
+
+        Intent intent = new Intent(this, TaskView.class);
+        intent.putExtra("itemSelected", idSelected);
         startActivity(intent);
     }
 

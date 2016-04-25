@@ -16,12 +16,17 @@ import android.view.View;
 
 public class TaskView extends AppCompatActivity {
 
+    private int taskSelected = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        taskSelected = extras.getInt("itemSelected", 0);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +51,7 @@ public class TaskView extends AppCompatActivity {
     public void taskEdit(View view)
     {
         Intent intent = new Intent(this, TaskEdit.class);
+        intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
     }
 }

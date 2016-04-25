@@ -23,12 +23,17 @@ import java.util.GregorianCalendar;
 
 public class TaskEdit extends AppCompatActivity {
 
+    private int taskSelected = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_edit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        taskSelected = extras.getInt("itemSelected", 0);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +89,7 @@ public class TaskEdit extends AppCompatActivity {
         cr.update(DailyTaskContentProvider.CONTENT_URI, values, /* "_id=="+id */ null, null);
 
         Intent intent = new Intent(this, TaskView.class);
+        intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
     }
 }
