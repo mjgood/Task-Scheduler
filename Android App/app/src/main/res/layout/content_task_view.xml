@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Hang Out With Cat"
-            android:id="@+id/textView4" />
+            android:id="@+id/textViewSubject" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,14 +36,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Daily, All Day"
-        android:id="@+id/textView5" />
+        android:id="@+id/textViewEndDate" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="High Priority"
-        android:id="@+id/textView6" />
+        android:id="@+id/textViewPriority" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras auctor erat magna, eu aliquet orci iaculis vitae. Nulla eleifend tortor at diam aliquet tempus id non massa. Aenean luctus sollicitudin neque nec pretium. Etiam congue lectus diam, a efficitur ante bibendum quis. Duis scelerisque malesuada dui, at commodo leo dignissim eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin quis eros a nulla ultricies ultrices.\n\n
             Suspendisse sodales odio eu magna facilisis tempor. Ut consequat commodo ligula quis finibus. Morbi suscipit laoreet dolor, quis volutpat diam facilisis a. Nunc nunc augue, pharetra vitae posuere et, condimentum eget velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed mollis, nisi nec dictum dapibus, nunc erat cursus arcu, a commodo nibh mauris eget dolor. Cras ut tellus ac purus finibus dictum. Praesent suscipit arcu eget tortor convallis fringilla. Nunc at pulvinar ipsum. Morbi molestie volutpat consectetur.
             "
-            android:id="@+id/textView8" />
+            android:id="@+id/textViewDescription" />
     </ScrollView>
 
     <LinearLayout
