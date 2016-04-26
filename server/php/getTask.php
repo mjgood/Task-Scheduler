@@ -26,4 +26,3 @@ print(json_encode($out));
 
 mysqli_close();
 ?>
-
