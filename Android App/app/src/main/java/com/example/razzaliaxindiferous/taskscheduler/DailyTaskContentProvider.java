@@ -6,6 +6,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 public class DailyTaskContentProvider extends ContentProvider {
@@ -42,8 +43,15 @@ public class DailyTaskContentProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
+        RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+        updateRemote.execute("insert",
+                values.getAsString("subject"),
+                values.getAsString("description"));
+
         return Uri.parse(BASE_PATH + "/" + id);
     }
+
+
 
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection,
@@ -85,6 +93,12 @@ public class DailyTaskContentProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI " + uri );
         }
         getContext().getContentResolver().notifyChange(uri, null);
+        RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+        updateRemote.execute("update",
+                values.getAsString("_id"),
+                values.getAsString("subject"),
+                values.getAsString("description"));
+
         return count;
     }
 
@@ -105,6 +119,9 @@ public class DailyTaskContentProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
+        RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+        updateRemote.execute("delete", selection);
+
         return count;
     }
 

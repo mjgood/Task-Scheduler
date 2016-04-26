@@ -41,7 +41,8 @@ import android.net.Uri;
 public class DailyTaskList extends AppCompatActivity implements
                                             LoaderManager.LoaderCallbacks<Cursor>,
                                             AdapterView.OnItemClickListener,
-                                            AdapterView.OnItemLongClickListener {
+                                            AdapterView.OnItemLongClickListener,
+                                            RemoteServerAsyncTask.UpdateOnRemoteQueryFinished {
     private SimpleCursorAdapter mAdapter;
     boolean filtered = false;
 
@@ -76,32 +77,6 @@ public class DailyTaskList extends AppCompatActivity implements
 
         mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                /*if (columnIndex == 2) {
-                    switch (cursor.getString(cursor.getColumnIndex("liked"))) {
-                        case "Y":
-                            ((ImageView) view).setImageResource(
-                                    R.drawable.ic_thumbs_up);
-                            view.setTag("Y");
-                            break;
-                        case "N":
-                            ((ImageView) view).setImageResource(
-                                    R.drawable.ic_thumbs_down);
-                            view.setTag("N");
-                            break;
-                        default:
-                            ((ImageView) view).setImageResource(
-                                    R.drawable.ic_question);
-                            view.setTag("?");
-                    }
-                    final long rowid = cursor.getLong(cursor.getColumnIndex("_id"));
-                    view.setOnClickListener(new View.OnClickListener() {
-                        long _rowid = rowid;
-                        public void onClick(View v) {
-                            toggleImage(_rowid, (ImageView) v);
-                        }
-                    });
-                    return true;
-                }*/
                 return false;
             }
         });
@@ -111,6 +86,21 @@ public class DailyTaskList extends AppCompatActivity implements
         listView.setOnItemClickListener(this);
         listView.setOnItemLongClickListener(this);
         getLoaderManager().initLoader(1, null, this);
+
+        // update the local server if it hasn't been updated recently
+        try {
+            if (getIntent().getExtras().getBoolean("loadedFromServer") != true) {
+                RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+                rsat.setUpdateRemoteQuery(this);
+                rsat.execute("query");
+            } else {
+                Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (NullPointerException e) {
+            RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+            rsat.setUpdateRemoteQuery(this);
+            rsat.execute("query");
+        }
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -212,6 +202,15 @@ public class DailyTaskList extends AppCompatActivity implements
         Intent intent = new Intent(this, DailyTaskList.class);
         startActivity(intent);
         return true;
+    }
+
+    //########################################################################
+    @Override
+    // restart the activity when the remote query finishes updating the local database
+    public void onRemoteQueryFinished() {
+        finish();
+        getIntent().putExtra("loadedFromServer", true);
+        startActivity(getIntent());
     }
 
     //########################################################################
