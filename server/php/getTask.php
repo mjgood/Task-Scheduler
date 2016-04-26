@@ -5,23 +5,25 @@
  * for each such field.
  */
 include 'credentials.php';
-$link = mysql_connect($db_host,$db_user,$db_pass);
-
-mysql_select_db($database);
+$link = mysqli_connect($db_host,$db_user,$db_pass,$database);
 
 if(!$link) {
-  die('Could not connect: ' . mysql_error());
+  die('Could not connect: ' . mysqli_connect_error());
 }
 
-$query=mysql_query(
-    "SELECT * FROM tasks " .
-    "WHERE _id=".$_REQUEST["id"]);
+$id=$_REQUEST["id"]; //No input validation here, careful
 
-while($i = mysql_fetch_assoc($query))
+$query =
+    "SELECT * FROM tasks " .
+    "WHERE _id = $id";
+
+$result = mysqli_query($link, $query);
+
+while($i = mysqli_fetch_assoc($result))
   $out[]=$i;
 
 print(json_encode($out));
 
-mysql_close();
+mysqli_close();
 ?>
 
