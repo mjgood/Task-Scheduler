@@ -223,7 +223,14 @@ public class DailyTaskList extends AppCompatActivity implements
 
     //User selects the Create Task button in title bar
     public void addTask(MenuItem item) {
+        ContentResolver cr = getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put("subject", "<New Task>");
+
+        String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI, values)).getLastPathSegment();
+
         Intent intent = new Intent(this, TaskEdit.class);
+        intent.putExtra("itemSelected", taskEdit);
         startActivity(intent);
     }
 
