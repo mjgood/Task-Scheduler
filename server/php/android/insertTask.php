@@ -1,7 +1,7 @@
 <?php
 /* This PHP script inserts a new row into the database.
- * NOTE: Need to actively sync auto_increment value when possible.
- * Need to determine how to handle that in android.
+ * NOTE: _id is always provided by Android.
+ * Requires id, subject to be posted.
  */
 include '../credentials.php';
 $link = mysqli_connect($db_host,$db_user,$db_pass,$database);
@@ -11,32 +11,37 @@ if(!$link) {
 }
 
 //Pull POST/GET values, prep for insertion
-$id = (isset($_REQUEST["id"])?$_REQUEST["id"]:false);
-$subject = (isset($_REQUEST["subject"])?$_REQUEST["subject"]:false);
-$comp_status = (isset($_REQUEST["completion_status"])?$_REQUEST["completion_status"]:false);
-$comp_percent = (isset($_REQUEST["completion_percentage"])?$_REQUEST["completion_percentage"]:false);
-$repeat_id = (isset($_REQUEST["repeat_id"])?$_REQUEST["repeat_id"]:false);
-$start_time = (isset($_REQUEST["start_time"])?$_REQUEST["start_time"]:false);
-$end_time = (isset($_REQUEST["end_time"])?$_REQUEST["end_time"]:false);
-$deadline = (isset($_REQUEST["deadline_time"])?$_REQUEST["deadline_time"]:false);
-$est_time = (isset($_REQUEST["estimated_time"])?$_REQUEST["estimated_time"]:false);
-$priority = (isset($_REQUEST["priority"])?$_REQUEST["priority"]:false);
-$rep_cond = (isset($_REQUEST["repeat_conditions"])?$_REQUEST["repeat_conditions"]:false);
-$description = (isset($_REQUEST["description"])?$_REQUEST["description"]:false);
+$id = $_REQUEST["id"];
+$subject = $_REQUEST["subject"];
+$comp_status = $_REQUEST["completion_status"];
+$comp_percent = $_REQUEST["completion_percentage"];
+$repeat_id = $_REQUEST["repeat_id"];
+$start_time = $_REQUEST["start_time"];
+$end_time = $_REQUEST["end_time"];
+$deadline = $_REQUEST["deadline_time"];
+$est_time = $_REQUEST["estimated_time"];
+$priority = $_REQUEST["priority"];
+$rep_cond = $_REQUEST["repeat_conditions"];
+$description = $_REQUEST["description"];
 
 $not_first = 0; //Is this the first element to be inserted?
+
+if(!$id)
+  die('ERROR: must pass id');
+if(!$subject)
+  die('ERROR: must past subject');
 
 $query =
     "INSERT INTO tasks (";
 
 //_ID passed
-if($id){
+if(isset($_REQUEST["id"])){
   $query.="_id";
   $not_first=1;
 }
 
 //subject passed
-if($subject){
+if(isset($_REQUEST["subject"])){
   if($not_first==1)
     $query.=", ";
   $query.="subject";
@@ -44,7 +49,7 @@ if($subject){
 }
 
 //completion_status passed
-if($comp_status){
+if(isset($_REQUEST["completion_status"])){
   if($not_first==1)
     $query.=", ";
   $query.="completion_status";
@@ -52,7 +57,7 @@ if($comp_status){
 }
 
 //completion_percentage passed
-if($comp_percent){
+if(isset($_REQUEST["completion_percentage"])){
   if($not_first==1)
     $query.=", ";
   $query.="completion_percentage";
@@ -60,7 +65,7 @@ if($comp_percent){
 }
 
 //repeat_id passed
-if($repeat_id){
+if(isset($_REQUEST["repeat_id"])){
   if($not_first==1)
     $query.=", ";
   $query.="repeat_id";
@@ -68,7 +73,7 @@ if($repeat_id){
 }
 
 //start_time passed
-if($start_time){
+if(isset($_REQUEST["start_time"])){
   if($not_first==1)
     $query.=", ";
   $query.="start_time";
@@ -76,7 +81,7 @@ if($start_time){
 }
 
 //end_time passed
-if($end_time){
+if(isset($_REQUEST["end_time"])){
   if($not_first==1)
     $query.=", ";
   $query.="end_time";
@@ -84,7 +89,7 @@ if($end_time){
 }
 
 //deadline_time passed
-if($deadline){
+if(isset($_REQUEST["deadline_time"])){
   if($not_first==1)
     $query.=", ";
   $query.="deadline_time";
@@ -92,7 +97,7 @@ if($deadline){
 }
 
 //estimated_time passed
-if($est_time){
+if(isset($_REQUEST["estimated_time"])){
   if($not_first==1)
     $query.=", ";
   $query.="estimated_time";
@@ -100,7 +105,7 @@ if($est_time){
 }
 
 //priority passed
-if($priority){
+if(isset($_REQUEST["priority"])){
   if($not_first==1)
     $query.=", ";
   $query.="priority";
@@ -108,7 +113,7 @@ if($priority){
 }
 
 //repeat_conditions passed
-if($rep_cond){
+if(isset($_REQUEST["repeat_conditions"])){
   if($not_first==1)
     $query.=", ";
   $query.="repeat_conditions";
@@ -116,7 +121,7 @@ if($rep_cond){
 }
 
 //description passed
-if($description){
+if(isset($_REQUEST["description"])){
   if($not_first==1)
     $query.=", ";
   $query.="description";
@@ -129,13 +134,13 @@ $query.=") VALUES (";
 $not_first=0;
 
 //_ID passed
-if($id){
+if(isset($_REQUEST["id"])){
   $query.="$id";
   $not_first=1;
 }
 
 //subject passed
-if($subject){
+if(isset($_REQUEST["subject"])){
   if($not_first==1)
     $query.=", ";
   $query.="$subject";
@@ -143,7 +148,7 @@ if($subject){
 }
 
 //completion_status passed
-if($comp_status){
+if(isset($_REQUEST["completion_status"])){
   if($not_first==1)
     $query.=", ";
   $query.="$comp_status";
@@ -151,7 +156,7 @@ if($comp_status){
 }
 
 //completion_percentage passed
-if($comp_percent){
+if(isset($_REQUEST["completion_percentage"])){
   if($not_first==1)
     $query.=", ";
   $query.="$comp_percent";
@@ -159,7 +164,7 @@ if($comp_percent){
 }
 
 //repeat_id passed
-if($repeat_id){
+if(isset($_REQUEST["repeat_id"])){
   if($not_first==1)
     $query.=", ";
   $query.="$repeat_id";
@@ -167,7 +172,7 @@ if($repeat_id){
 }
 
 //start_time passed
-if($start_time){
+if(isset($_REQUEST["start_time"])){
   if($not_first==1)
     $query.=", ";
   $query.="$start_time";
@@ -175,7 +180,7 @@ if($start_time){
 }
 
 //end_time passed
-if($end_time){
+if(isset($_REQUEST["end_time"])){
   if($not_first==1)
     $query.=", ";
   $query.="$end_time";
@@ -183,7 +188,7 @@ if($end_time){
 }
 
 //deadline_time passed
-if($deadline){
+if(isset($_REQUEST["deadline_time"])){
   if($not_first==1)
     $query.=", ";
   $query.="$deadline";
@@ -191,7 +196,7 @@ if($deadline){
 }
 
 //estimated_time passed
-if($est_time){
+if(isset($_REQUEST["estimated_time"])){
   if($not_first==1)
     $query.=", ";
   $query.="$est_time";
@@ -199,7 +204,7 @@ if($est_time){
 }
 
 //priority passed
-if($priority){
+if(isset($_REQUEST["priority"])){
   if($not_first==1)
     $query.=", ";
   $query.="$priority";
@@ -207,7 +212,7 @@ if($priority){
 }
 
 //repeat_conditions passed
-if($rep_cond){
+if(isset($_REQUEST["repeat_conditions"])){
   if($not_first==1)
     $query.=", ";
   $query.="$rep_cond";
@@ -215,7 +220,7 @@ if($rep_cond){
 }
 
 //description passed
-if($description){
+if(isset($_REQUEST["description"])){
   if($not_first==1)
     $query.=", ";
   $query.="$description";
@@ -226,11 +231,10 @@ $query.=");";
 
 $result = mysqli_query($link, $query);
 
-print("\n");
 if($result)
   print("true");
 else
-  print("ERROR: ".mysqli_error($link));
+  die("ERROR: ".mysqli_error($link));
 
 mysqli_close();
 ?>
