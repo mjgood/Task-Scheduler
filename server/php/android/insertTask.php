@@ -3,7 +3,7 @@
  * NOTE: Need to actively sync auto_increment value when possible.
  * Need to determine how to handle that in android.
  */
-include 'credentials.php';
+include '../credentials.php';
 $link = mysqli_connect($db_host,$db_user,$db_pass,$database);
 
 if(!$link) {

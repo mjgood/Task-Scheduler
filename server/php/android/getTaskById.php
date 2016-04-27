@@ -4,7 +4,7 @@
  * types of fields, or may have a new file created
  * for each such field.
  */
-include 'credentials.php';
+include '../credentials.php';
 $link = mysqli_connect($db_host,$db_user,$db_pass,$database);
 
 if(!$link) {
