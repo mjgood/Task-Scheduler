@@ -20,7 +20,7 @@ if(!$link) {
 }
 
 //If we are polling for a new task:
-if(!$new_task){
+if($new_task){
   $query =
       "SELECT * FROM new_tasks " .
       "WHERE task_id = $id";
