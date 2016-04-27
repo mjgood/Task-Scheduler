@@ -1,0 +1,35 @@
+Author: Thomas Singleton
+
+Description:
+This is the initial PHP-HTTP API for the Task Scheduler Server application, available in plain text.
+
+credentials.php
+This file is used by the server to provide access to the database. The credentials are hosted
+in one location, allowing any modifactions to require only one edit.
+
+getTaskById.php
+Gets a task, by ID, from the MySQL database's task.
+Provide the ID via POST/GET, and the script returns stringified JSON objects.
+Usage:
+<server>/php/getTaskById.php?id=1
+or via POST.
+
+insertTask.php
+Inserts a task into the tasks table in the MySQL database.
+Provide arguments via POST/GET, and the script returns either "true" or the error message.
+IMPORTANT:
+id is the Android SQLite _id value. Do not insert into this table without first completing insertion
+into the Android Task Scheduler SQLite database tasks table.
+Arguments:
+id
+subject
+completion_status
+completion_percentage
+repeat_id
+start_time
+end_time
+deadline_time
+estimated_time
+priority
+repeat_conditions
+description
