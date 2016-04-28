@@ -25,6 +25,9 @@ public class DailyTaskContentProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", TASKS_ID);
     }
 
+    String serverAddress = "http://174.54.194.23";
+    String port = "8010";
+
     @Override
     public boolean onCreate() {
         taskDB = Database.getInstance(getContext());
@@ -33,7 +36,7 @@ public class DailyTaskContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
-        long id;
+        long id = -1;
         SQLiteDatabase db = taskDB.getWritableDatabase();
         switch (uriMatcher.match(uri)) {
             case TASKS:
@@ -45,8 +48,10 @@ public class DailyTaskContentProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(uri, null);
         RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
         updateRemote.execute("insert",
-                values.getAsString("subject"),
-                values.getAsString("description"));
+                serverAddress, port,
+                "id", Long.toString(id),
+                "subject", values.getAsString("subject"),
+                "description", values.getAsString("description"));
 
         return Uri.parse(BASE_PATH + "/" + id);
     }
@@ -95,9 +100,10 @@ public class DailyTaskContentProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(uri, null);
         RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
         updateRemote.execute("update",
-                values.getAsString("_id"),
-                values.getAsString("subject"),
-                values.getAsString("description"));
+                serverAddress, port,
+                "id", values.getAsString("_id"),
+                "subject", values.getAsString("subject"),
+                "description", values.getAsString("description"));
 
         return count;
     }
@@ -120,7 +126,9 @@ public class DailyTaskContentProvider extends ContentProvider {
         }
         getContext().getContentResolver().notifyChange(uri, null);
         RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
-        updateRemote.execute("delete", selection);
+        updateRemote.execute("delete",
+                serverAddress, port,
+                "id", selection);
 
         return count;
     }

@@ -92,14 +92,16 @@ public class DailyTaskList extends AppCompatActivity implements
             if (getIntent().getExtras().getBoolean("loadedFromServer") != true) {
                 RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
                 rsat.setUpdateRemoteQuery(this);
-                rsat.execute("query");
+                // TO-DO: Make server, port dynamic
+                rsat.execute("query", "http://174.54.194.23", "8010");
             } else {
                 Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
             }
         } catch (NullPointerException e) {
             RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
             rsat.setUpdateRemoteQuery(this);
-            rsat.execute("query");
+            // TO-DO: Make server, port dynamic
+            rsat.execute("query", "http://174.54.194.23", "8010");
         }
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -226,6 +228,7 @@ public class DailyTaskList extends AppCompatActivity implements
         ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
         values.put("subject", "<New Task>");
+        values.put("description", "Description hardcoded at 12:56AM");
 
         String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI, values)).getLastPathSegment();
 
