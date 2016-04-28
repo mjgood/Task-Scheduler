@@ -9,6 +9,7 @@ package com.example.razzaliaxindiferous.taskscheduler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -38,6 +39,32 @@ public class TaskEdit extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         taskSelected = extras.getInt("itemSelected", 0);
 
+        // Populate the edit task fields
+        String[] values = {
+                "_id",
+                "subject",
+                "description",
+                "priority",
+                "completion_status",
+                "completion_percentage",
+                "start_time",
+                "priority",
+                "end_time"
+        };
+        String[] selectionArgs = {
+                Long.toString(taskSelected)
+        };
+        Cursor c = getContentResolver().query(DailyTaskContentProvider.CONTENT_URI, values, "_id=?", selectionArgs, null);
+        if (c.moveToFirst()) {
+            ((EditText) findViewById(R.id.editTaskName)).setText(c.getString(1));
+            ((EditText) findViewById(R.id.editCompletion)).setText(c.getString(c.getColumnIndex("completion_percentage")));
+            ((EditText) findViewById(R.id.editTimeStart)).setText(c.getString(c.getColumnIndex("start_time")));
+            ((EditText) findViewById(R.id.editTimeEnd)).setText(c.getString(c.getColumnIndex("end_time")));
+            ((EditText) findViewById(R.id.editPriority)).setText(c.getString(c.getColumnIndex("priority")));
+            ((EditText) findViewById(R.id.editDescription)).setText(c.getString(c.getColumnIndex("description")));
+        }
+        c.close();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,23 +93,10 @@ public class TaskEdit extends AppCompatActivity {
 
     //User wants to save their changes to the task
     public void doneEdit(View view)
-    {ContentResolver cr = getContentResolver();
+    {
+        // Store the input values in the database
+        ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
-
-        /*
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "subject TEXT NOT NULL," +
-                "completion_status TINYINT," +
-                "completion_percentage TINYINT," +
-                "repeat_id INTEGER," +
-                "start_time DATETIME," +
-                "end_time DATETIME," +
-                "deadline_time DATETIME," +
-                "estimated_time DATETIME," +
-                "priority TINYINT," +
-                "repeat_conditions TEXT," +
-                "description TEXT)";
-        */
 
         values.put("_id", taskSelected);
         values.put("subject", ((EditText)findViewById(R.id.editTaskName)).getText().toString());
@@ -97,26 +111,7 @@ public class TaskEdit extends AppCompatActivity {
         //values.put("repeat_conditions", ((EditText)findViewById(R.id.???)).getText().toString());
         values.put("description", ((EditText)findViewById(R.id.editDescription)).getText().toString());
 
-        /*Calendar date = new GregorianCalendar(
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-
-        Log.d("Info", Integer.toString(date.get(Calendar.YEAR)));
-        Log.d("Info", Integer.toString(date.get(Calendar.MONTH)));
-        Log.d("Info", Integer.toString(date.get(Calendar.DAY_OF_MONTH)));
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setCalendar(date);
-        String dateFormatted = sdf.format(date.getTime());
-        Log.d("Info", dateFormatted);
-
-        values.put("deadline_time", dateFormatted);*/
-
-        //if(cr.query(DailyTaskContentProvider.CONTENT_URI,null,"_id="+taskSelected,null,null)!=null)
-            cr.update(DailyTaskContentProvider.CONTENT_URI, values, "_id="+taskSelected, null);
-        //else
-            //cr.insert(DailyTaskContentProvider.CONTENT_URI, values);
+        cr.update(DailyTaskContentProvider.CONTENT_URI, values, "_id="+taskSelected, null);
 
         Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("itemSelected", taskSelected);

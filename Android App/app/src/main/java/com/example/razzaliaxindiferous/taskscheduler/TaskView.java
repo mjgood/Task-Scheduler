@@ -49,7 +49,8 @@ public class TaskView extends AppCompatActivity {
                 "completion_percentage",
                 "start_time",
                 "priority",
-                "end_time"};
+                "end_time"
+        };
 
         queryResults = new String[9];
 
