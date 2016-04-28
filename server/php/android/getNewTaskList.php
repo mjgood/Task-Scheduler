@@ -11,7 +11,7 @@ $link = mysqli_connect($db_host,$db_user,$db_pass,$database);
 if(!$link)
   die('Could not connect: ' . mysqli_connect_error());
 
-$query = "SELECT task_id FROM new_tasks LIMIT 10;";
+$query = "SELECT task_id FROM new_tasks;";
 
 $result = mysqli_query($link, $query);
 
