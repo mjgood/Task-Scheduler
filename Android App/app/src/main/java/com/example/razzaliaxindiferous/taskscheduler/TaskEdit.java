@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -83,20 +84,18 @@ public class TaskEdit extends AppCompatActivity {
                 "description TEXT)";
         */
 
-        /*
         values.put("_id", taskSelected);
         values.put("subject", ((EditText)findViewById(R.id.editTaskName)).getText().toString());
         //values.put("completion_status", Integer.parseInt(((EditText)findViewById(R.id.editTime)).getText().toString()));
         values.put("completion_percentage", Integer.parseInt(((EditText)findViewById(R.id.editCompletion)).getText().toString()));
         //values.put("repeat_id", (((CheckBox)findViewById(R.id.repeatCheckBox)).isChecked()) ? 1:0);
-        //values.put("start_time", ((EditText)findViewById(R.id.editTimeStart)).getText().toString());
-        //values.put("end_time", ((EditText)findViewById(R.id.editTimeEnd)).getText().toString());
+        values.put("start_time", ((EditText)findViewById(R.id.editTimeStart)).getText().toString());
+        values.put("end_time", ((EditText)findViewById(R.id.editTimeEnd)).getText().toString());
         //values.put("deadline_time", ((EditText)findViewById(R.id.editTime)).getText().toString());
         //values.put("estimated_time", ((EditText)findViewById(R.id.editTime)).getText().toString());
         values.put("priority", Integer.parseInt(((EditText)findViewById(R.id.editPriority)).getText().toString()));
         //values.put("repeat_conditions", ((EditText)findViewById(R.id.???)).getText().toString());
         values.put("description", ((EditText)findViewById(R.id.editDescription)).getText().toString());
-        */
 
         /*Calendar date = new GregorianCalendar(
                 Calendar.getInstance().get(Calendar.YEAR),

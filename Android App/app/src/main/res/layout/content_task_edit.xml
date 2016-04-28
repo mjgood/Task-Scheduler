@@ -44,7 +44,6 @@
         <EditText
             android:layout_width="181dp"
             android:layout_height="wrap_content"
-            android:inputType="time"
             android:ems="10"
             android:id="@+id/editTimeStart"
             android:hint="Time-Start" />
@@ -52,7 +51,6 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="time"
             android:ems="10"
             android:id="@+id/editTimeEnd"
             android:hint="Time-End"
