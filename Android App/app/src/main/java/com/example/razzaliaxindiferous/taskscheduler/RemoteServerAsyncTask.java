@@ -40,8 +40,8 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         String serverPort = params[2];
         URL url = null;
         HttpURLConnection urlConnection = null;
-        String connectString = serverAddress;
-            //connectString = connectString.concat(serverAddress);
+        String connectString = "http://";
+            connectString = connectString.concat(serverAddress);
             connectString = connectString.concat(":");
             connectString = connectString.concat(serverPort);
             connectString = connectString.concat("/php/android/");
@@ -90,6 +90,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                 connectString = connectString.concat("%27");
             }
             Log.d("Postformat URL: ", connectString);
+
 
             //create connection URL
             try {

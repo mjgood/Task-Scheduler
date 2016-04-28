@@ -28,6 +28,7 @@ import java.util.GregorianCalendar;
 public class TaskEdit extends AppCompatActivity {
 
     private int taskSelected = -1;
+    private String completionStatus = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class TaskEdit extends AppCompatActivity {
             ((EditText) findViewById(R.id.editTimeEnd)).setText(c.getString(c.getColumnIndex("end_time")));
             ((EditText) findViewById(R.id.editPriority)).setText(c.getString(c.getColumnIndex("priority")));
             ((EditText) findViewById(R.id.editDescription)).setText(c.getString(c.getColumnIndex("description")));
+            completionStatus = c.getString(c.getColumnIndex("completion_status"));
         }
         c.close();
 
@@ -102,6 +104,7 @@ public class TaskEdit extends AppCompatActivity {
         values.put("subject", ((EditText)findViewById(R.id.editTaskName)).getText().toString());
         //values.put("completion_status", Integer.parseInt(((EditText)findViewById(R.id.editTime)).getText().toString()));
         values.put("completion_percentage", Integer.parseInt(((EditText)findViewById(R.id.editCompletion)).getText().toString()));
+        values.put("completion_status", "0");
         //values.put("repeat_id", (((CheckBox)findViewById(R.id.repeatCheckBox)).isChecked()) ? 1:0);
         values.put("start_time", ((EditText)findViewById(R.id.editTimeStart)).getText().toString());
         values.put("end_time", ((EditText)findViewById(R.id.editTimeEnd)).getText().toString());
@@ -110,8 +113,9 @@ public class TaskEdit extends AppCompatActivity {
         values.put("priority", Integer.parseInt(((EditText)findViewById(R.id.editPriority)).getText().toString()));
         //values.put("repeat_conditions", ((EditText)findViewById(R.id.???)).getText().toString());
         values.put("description", ((EditText)findViewById(R.id.editDescription)).getText().toString());
+        values.put("completion_status", completionStatus);
 
-        cr.update(DailyTaskContentProvider.CONTENT_URI, values, "_id="+taskSelected, null);
+        cr.update(DailyTaskContentProvider.CONTENT_URI, values, "_id = "+taskSelected, null);
 
         Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("itemSelected", taskSelected);

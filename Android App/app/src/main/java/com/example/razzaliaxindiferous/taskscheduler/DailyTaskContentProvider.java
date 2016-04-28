@@ -34,8 +34,9 @@ public class DailyTaskContentProvider extends ContentProvider {
     public boolean onCreate() {
         taskDB = Database.getInstance(getContext());
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String serverAddress = prefs.getString("RemoteDB_uri", "");
-        String port = prefs.getString("RemoteDB_port", "");
+
+        serverAddress = prefs.getString(getContext().getString(R.string.pref_rdb_uri), "");
+        port = prefs.getString(getContext().getString(R.string.pref_rdb_port), "");
         return true;
     }
 
@@ -56,7 +57,12 @@ public class DailyTaskContentProvider extends ContentProvider {
                 serverAddress, port,
                 "id", Long.toString(id),
                 "subject", values.getAsString("subject"),
-                "description", values.getAsString("description"));
+                "description", values.getAsString("description"),
+                "priority", values.getAsString("priority"),
+                "completion_status", values.getAsString("completion_status"),
+                "completion_percentage", values.getAsString("completion_percentage"),
+                "start_time", values.getAsString("start_time"),
+                "end_time", values.getAsString("end_time"));
 
         return Uri.parse(BASE_PATH + "/" + id);
     }

@@ -9,6 +9,7 @@ package com.example.razzaliaxindiferous.taskscheduler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,6 +26,8 @@ import java.util.GregorianCalendar;
 public class TaskView extends AppCompatActivity {
 
     private int taskSelected = -1;
+
+    private String[] queryResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,37 +39,42 @@ public class TaskView extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         taskSelected = extras.getInt("itemSelected", 0);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         ContentResolver cr = getContentResolver();
-        ContentValues values = new ContentValues();
-        values.get("_id");
-        values.get("subject");
-        values.get("description");
-        values.get("priority");
-        values.get("end_time");
+        String[] values = {
+                "_id",
+                "subject",
+                "description",
+                "priority",
+                "completion_status",
+                "completion_percentage",
+                "start_time",
+                "end_time"};
 
-        String[] results = new String[5];
+        queryResults = new String[8];
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setCalendar(date);
-        String dateFormatted = sdf.format(date.getTime());
-        Log.d("Info", dateFormatted);
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        values.put("deadline_time", dateFormatted);
+        Log.d ("Task Selected:", Long.toString(taskSelected));
+        String[] selectionArgs = {
+                Long.toString(taskSelected)};
 
-        //cr.insert(DailyTaskContentProvider.CONTENT_URI, values);
+        Cursor c = cr.query(DailyTaskContentProvider.CONTENT_URI, values, "_id=?", selectionArgs, null);
 
-        String selectionArgs = "_id=="+taskSelected+"";
+        if (c.moveToFirst()) {
+            ((TextView) findViewById(R.id.textViewSubject)).setText(c.getString(1));
+            ((TextView) findViewById(R.id.textViewDescription)).setText(c.getString(2));
+            ((TextView) findViewById(R.id.textViewPriority)).setText(c.getString(3));
+            ((TextView) findViewById(R.id.textViewEndDate)).setText(c.getString(7));
 
-        cr.query(DailyTaskContentProvider.CONTENT_URI, results, values, selectionArgs, null);
+            try { //could be null pointers
+            if (c.getString(4).equals("1")) {
+                ((TextView) findViewById(R.id.textViewCompleted)).setText("True");
+            }} catch (Exception e) {}
+
+            for (int ctr = 0; ctr < queryResults.length; ctr++) {
+                queryResults[ctr] = c.getString(ctr);
+            }
+        }
     }
 
     //######################################################################
@@ -81,6 +90,43 @@ public class TaskView extends AppCompatActivity {
     public void taskEdit(View view)
     {
         Intent intent = new Intent(this, TaskEdit.class);
+        intent.putExtra("itemSelected", taskSelected);
+        startActivity(intent);
+    }
+
+    //User chooses to delete the task
+    public void taskDelete(View view)
+    {
+        ContentResolver cr = getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put("id", taskSelected);
+
+        String where = "_id = " + taskSelected;
+        int deleteFlag = (cr.delete(DailyTaskContentProvider.CONTENT_URI, where, null));
+
+        Intent intent = new Intent(this, DailyTaskList.class);
+        intent.putExtra("itemSelected", taskSelected);
+        startActivity(intent);
+    }
+
+    //User chooses to complete the task
+    public void taskComplete(View view)
+    {
+        ContentResolver cr = getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put("_id", taskSelected);
+        values.put("subject", queryResults[1]);
+        values.put("description", queryResults[2]);
+        values.put("priority", queryResults[3]);
+        values.put("completion_status", 1);
+        values.put("completion_percentage", queryResults[5]);
+        values.put("start_time", queryResults[6]);
+        values.put("end_time", queryResults[7]);
+
+        String where = "_id = " + taskSelected;
+        int deleteFlag = (cr.update(DailyTaskContentProvider.CONTENT_URI, values, where, null));
+
+        Intent intent = new Intent(this, DailyTaskList.class);
         intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
     }

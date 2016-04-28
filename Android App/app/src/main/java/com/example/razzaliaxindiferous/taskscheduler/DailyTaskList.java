@@ -61,8 +61,8 @@ public class DailyTaskList extends AppCompatActivity implements
 
         //SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Log.d("PREFS", prefs.getString("RemoteDB_uri", ""));
-        Log.d("PREFS", prefs.getString("RemoteDB_port", ""));
+        Log.d("PREFS", prefs.getString(getString(R.string.pref_rdb_uri), ""));
+        Log.d("PREFS", prefs.getString(getString(R.string.pref_rdb_port), ""));
 
         dateDisplay = new GregorianCalendar(
                 Calendar.getInstance().get(Calendar.YEAR),
@@ -97,8 +97,8 @@ public class DailyTaskList extends AppCompatActivity implements
 
                 // TO-DO: Make server, port dynamic
                 rsat.execute("query",
-                        prefs.getString("RemoteDB_uri", ""),
-                        prefs.getString("RemoteDB_port", ""));
+                        prefs.getString(getString(R.string.pref_rdb_uri), ""),
+                        prefs.getString(getString(R.string.pref_rdb_port), ""));
             } else {
                 Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
             }
@@ -106,8 +106,8 @@ public class DailyTaskList extends AppCompatActivity implements
             RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
             rsat.setUpdateRemoteQuery(this);
             rsat.execute("query",
-                    prefs.getString("RemoteDB_uri", ""),
-                    prefs.getString("RemoteDB_port", ""));
+                    prefs.getString(getString(R.string.pref_rdb_uri), ""),
+                    prefs.getString(getString(R.string.pref_rdb_port), ""));
         }
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -235,6 +235,11 @@ public class DailyTaskList extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put("subject", "<New Task>");
         values.put("description", "Description hardcoded at 12:56AM");
+        values.put("priority", "0");
+        values.put("completion_status", "0");
+        values.put("completion_percentage", "0");
+        values.put("start_time", "1999-12-31");
+        values.put("end_time", "1999-12-31");
 
         String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI, values)).getLastPathSegment();
 
