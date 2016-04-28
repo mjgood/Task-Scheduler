@@ -11,7 +11,7 @@ Michael Good, mjg5632
     <!-- daily task view date !-->
     <item android:id="@+id/date_actionButton"
         android:orderInCategory="101"
-        android:title="2/18/2016"
+        android:title="4/28/2016"
         app:showAsAction="always|withText"
         android:onClick="pickDate"/>
  <!-- add task !-->

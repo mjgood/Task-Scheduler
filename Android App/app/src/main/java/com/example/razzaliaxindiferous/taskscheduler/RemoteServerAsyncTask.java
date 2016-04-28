@@ -1,7 +1,12 @@
 package com.example.razzaliaxindiferous.taskscheduler;
 
+import android.content.*;
+import android.content.*;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -150,6 +155,30 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                         // Convert the InputStream into a string
                         String contentAsString = readIt(is, len);
                         Log.d("urlResults", contentAsString);
+
+                        /*ContentResolver cr = getContentResolver();
+                        ContentValues values = new ContentValues();
+                        values.put("subject", "<New Task>");
+                        values.put("description", "Description hardcoded at 12:56AM");
+                        values.put("priority", "0");
+                        values.put("completion_status", "0");
+                        values.put("completion_percentage", "0");
+                        values.put("start_time", "1999-12-31");
+                        values.put("end_time", "1999-12-31");
+
+                        String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI, values)).getLastPathSegment();*/
+
+                        try {
+                        JSONArray jArray = new JSONArray(contentAsString);
+                        for(int i=0;i<jArray.length();i++) {
+                            JSONObject json_data = jArray.getJSONObject(i);
+                            Log.i("log_tag", "id: " + json_data.getInt("id") +
+                                    ", name: " + json_data.getString("name") +
+                                    ", sex: " + json_data.getInt("sex") +
+                                    ", birthyear: " + json_data.getInt("birthyear")
+                            );
+                        }
+                        } catch (Exception err) { Log.d("ERROR: ", err.getStackTrace().toString()); }
 
                         // TO-DO: ADD RECORDS TO APPROPRIATE PLACES IN TABLES
 

@@ -74,11 +74,24 @@ public class DailyTaskList extends AppCompatActivity implements
             filtered = savedInstanceState.getBoolean("filtered");
 
         mAdapter = new SimpleCursorAdapter(this, R.layout.list_item_daily_task, null,
-                new String[]{"_id", "subject", "description", "deadline_time"},
-                new int[]{R.id.txtId, R.id.txtContent, R.id.txtDescription, R.id.txtDeadline}, 0);
+                new String[]{"_id", "subject", "description", "deadline_time",
+                        "completion_status", "completion_percentage"},
+                new int[]{R.id.txtId,
+                        R.id.txtContent,
+                        R.id.txtDescription,
+                        R.id.txtDeadline,
+                        R.id.txtStatus,
+                        R.id.txtPercent}, 0);
 
         mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                /*if (columnIndex == 4) {
+                    if (((TextView) view.findViewById(R.id.txtStatus)).getText().equals("1")) {
+                        ((LinearLayout) view.findViewById(R.id.taskItem)).setBackgroundColor(getResources().getColor(R.color.colorGrayGreen));
+                        ((TextView) view.findViewById(R.id.txtStatus)).setText("Done");
+                    }
+                    return false;
+                }*/
                 return false;
             }
         });
@@ -154,10 +167,8 @@ public class DailyTaskList extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] columns = {"_id", "subject", "deadline_time", "description"};
-            /*String[] columns = {"id", "subject", "completion_status", "completion_percentage",
-                    "start_time", "end_time", "deadline_time",
-                    "estimated_time", "priority", "description"}*/
+        String[] columns = {"_id", "subject", "deadline_time", "description",
+                "completion_status", "completion_percentage"};
         Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.YEAR)));
         Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.MONTH)));
         Log.d("Where", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
@@ -167,13 +178,6 @@ public class DailyTaskList extends AppCompatActivity implements
         String dateFormatted = sdf.format(dateDisplay.getTime());
 
         String where = null;
-        //String where = "deadline_time = Datetime(" + dateDisplay + ")";
-                    /*Integer.toString(dateDisplay.get(Calendar.YEAR)) + "-"
-                    + Integer.toString(dateDisplay.get(Calendar.MONTH)) + "-"
-                    + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)) + " 00:00:00')"
-                + " and deadline_time <= Datetime('" + Integer.toString(dateDisplay.get(Calendar.YEAR)) + "-"
-                + Integer.toString(dateDisplay.get(Calendar.MONTH)) + "-"
-                + Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)) + " 23:59:59')";*/
 
         //INSERT REFERENCE TO CONTENT PROVIDER
         return new CursorLoader(this, DailyTaskContentProvider.CONTENT_URI,

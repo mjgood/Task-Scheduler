@@ -119,7 +119,7 @@ public class TaskView extends AppCompatActivity {
         values.put("description", queryResults[2]);
         values.put("priority", queryResults[3]);
         values.put("completion_status", 1);
-        values.put("completion_percentage", queryResults[5]);
+        values.put("completion_percentage", 100);
         values.put("start_time", queryResults[6]);
         values.put("end_time", queryResults[7]);
 
