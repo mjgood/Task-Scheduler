@@ -3,10 +3,12 @@ Author: Thomas Singleton
 Description:
 This is the initial PHP-HTTP API for the Task Scheduler Server application, available in plain text.
 
+------------------
 credentials.php
 This file is used by the server to provide access to the database. The credentials are hosted
 in one location, allowing any modifactions to require only one edit.
 
+------------------
 getTaskById.php
 Gets a task, by ID, from the MySQL Database table specified.
 Provide the ID via POST/GET, and the script returns stringified JSON objects.
@@ -16,7 +18,21 @@ id
 new_task
   -> If not provided (null) or 0: Delete from tasks
   -> If 1: Delete from new_tasks
+Returns:
+id
+subject
+completion_status
+completion_percentage
+repeat_id
+start_time
+end_time
+deadline_time
+estimated_time
+priority
+repeat_conditions
+description
 
+---------------------
 deleteTaskById.php
 Deletes a task, by ID, from the MySQL Database table specified.
 Provide the ID via POST/GET; returns true if successful
@@ -27,7 +43,11 @@ id
 new_task
   -> If not provided (null) or 0: Delete from tasks
   -> If 1: Delete from new_tasks
+Returns:
+true if successful
+Anything else (error message) if unsuccessful
 
+---------------
 insertTask.php
 Inserts a task into the tasks table in the MySQL database.
 Provide arguments via POST/GET, and the script returns either "true" or the error message.
@@ -49,7 +69,11 @@ estimated_time
 priority
 repeat_conditions
 description
+Returns:
+true if successful
+Anything else (error message) if unsuccessful
 
+--------------
 updateTask.php
 Updates a task into the tasks table in the MySQL
 database tasks table.
@@ -70,3 +94,50 @@ estimated_time
 priority
 repeat_conditions
 description
+Returns:
+true if successful
+Anything else (error message) if unsuccessful
+
+---------------------
+getNewTaskIdList.php
+Returns a JSON Array of the task_ids of all tasks in
+the MySQL database new_tasks table, in ascending order.
+Returns:
+task_id
+
+---------------------
+getNewTaskList.php
+Returns a JSON Array of all tuples in the MySQL
+database new_tasks table, in ascending order.
+Returns:
+task_id
+subject
+completion_status
+completion_percentage
+repeat_id
+start_time
+end_time
+deadline_time
+estimated_time
+priority
+repeat_conditions
+description
+
+---------------------
+getOldestTask.php
+Returns a JSON Array containing the oldest task (by task_id)
+in the MySQL new_tasks table.
+Returns:
+task_id
+subject
+completion_status
+completion_percentage
+repeat_id
+start_time
+end_time
+deadline_time
+estimated_time
+priority
+repeat_conditions
+description
+
