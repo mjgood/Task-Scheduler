@@ -2,11 +2,13 @@ package com.example.razzaliaxindiferous.taskscheduler;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 public class DailyTaskContentProvider extends ContentProvider {
@@ -25,12 +27,15 @@ public class DailyTaskContentProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", TASKS_ID);
     }
 
-    String serverAddress = "http://174.54.194.23";
-    String port = "8010";
+    String serverAddress = null;
+    String port = null;
 
     @Override
     public boolean onCreate() {
         taskDB = Database.getInstance(getContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String serverAddress = prefs.getString("RemoteDB_uri", "");
+        String port = prefs.getString("RemoteDB_port", "");
         return true;
     }
 
@@ -103,7 +108,12 @@ public class DailyTaskContentProvider extends ContentProvider {
                 serverAddress, port,
                 "id", values.getAsString("_id"),
                 "subject", values.getAsString("subject"),
-                "description", values.getAsString("description"));
+                "description", values.getAsString("description"),
+                "priority", values.getAsString("priority"),
+                "completion_status", values.getAsString("completion_status"),
+                "completion_percentage", values.getAsString("completion_percentage"),
+                "start_time", values.getAsString("start_time"),
+                "end_time", values.getAsString("end_time"));
 
         return count;
     }

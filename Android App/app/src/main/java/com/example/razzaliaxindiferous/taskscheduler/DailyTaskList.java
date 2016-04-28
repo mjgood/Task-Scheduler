@@ -61,6 +61,8 @@ public class DailyTaskList extends AppCompatActivity implements
 
         //SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Log.d("PREFS", prefs.getString("RemoteDB_uri", ""));
+        Log.d("PREFS", prefs.getString("RemoteDB_port", ""));
 
         dateDisplay = new GregorianCalendar(
                 Calendar.getInstance().get(Calendar.YEAR),
@@ -92,16 +94,20 @@ public class DailyTaskList extends AppCompatActivity implements
             if (getIntent().getExtras().getBoolean("loadedFromServer") != true) {
                 RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
                 rsat.setUpdateRemoteQuery(this);
+
                 // TO-DO: Make server, port dynamic
-                rsat.execute("query", "http://174.54.194.23", "8010");
+                rsat.execute("query",
+                        prefs.getString("RemoteDB_uri", ""),
+                        prefs.getString("RemoteDB_port", ""));
             } else {
                 Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
             }
         } catch (NullPointerException e) {
             RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
             rsat.setUpdateRemoteQuery(this);
-            // TO-DO: Make server, port dynamic
-            rsat.execute("query", "http://174.54.194.23", "8010");
+            rsat.execute("query",
+                    prefs.getString("RemoteDB_uri", ""),
+                    prefs.getString("RemoteDB_port", ""));
         }
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

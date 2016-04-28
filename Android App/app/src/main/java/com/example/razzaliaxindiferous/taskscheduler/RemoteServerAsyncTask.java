@@ -79,69 +79,91 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                 break;
         }
 
-        Log.d("Preformat URL: ", connectString);
-        //format connect string to HTTP POST style
-        connectString = connectString.replace("=", "=%27");
-        connectString = connectString.replace("&", "%27&");
-        connectString = connectString.replace(" ", "%20");
-        connectString = connectString.replace("'", "");
-        if (command != "query") { connectString = connectString.concat("%27"); }
-        Log.d("Postformat URL: ", connectString);
+        try {
+            Log.d("Preformat URL: ", connectString);
+            //format connect string to HTTP POST style
+            connectString = connectString.replace("=", "=%27");
+            connectString = connectString.replace("&", "%27&");
+            connectString = connectString.replace(" ", "%20");
+            connectString = connectString.replace("'", "");
+            if (command != "query") {
+                connectString = connectString.concat("%27");
+            }
+            Log.d("Postformat URL: ", connectString);
 
-        //create connection URL
-        try { url = new URL(connectString); }
-        catch (MalformedURLException e) { e.printStackTrace(); }
-        try { urlConnection = (HttpURLConnection) url.openConnection(); }
-        catch (IOException e) { e.printStackTrace(); }
+            //create connection URL
+            try {
+                url = new URL(connectString);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        urlConnection.setReadTimeout(10000);        //timeout for read
-        urlConnection.setConnectTimeout(15000);     //timeout for connect
-        InputStream is = null;
-        OutputStream os = null;
-        int len = 500;              //length of returned data to read - may need to be increased?
+            urlConnection.setReadTimeout(10000);        //timeout for read
+            urlConnection.setConnectTimeout(15000);     //timeout for connect
+            InputStream is = null;
+            OutputStream os = null;
+            int len = 500;              //length of returned data to read - may need to be increased?
 
-        //execute call to server
-        switch(command) {
-            case "insert":
-            case "update":
-            case "delete":
-                try {
-                    urlConnection.setDoOutput(true);
-                    urlConnection.setRequestMethod("POST");
+            //execute call to server
+            switch (command) {
+                case "insert":
+                case "update":
+                case "delete":
+                    try {
+                        urlConnection.setDoOutput(true);
+                        urlConnection.setRequestMethod("POST");
+                        urlConnection.setDoInput(true);
+
+                        urlConnection.connect();
+                        int response = urlConnection.getResponseCode();
+                        Log.d("urlConnection: " + command, "The response is: " + response);
+                        is = urlConnection.getInputStream();
+
+                        // Convert the InputStream into a string
+                        String contentAsString = readIt(is, len);
+                        Log.d("urlResults", contentAsString);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "query":
+                    try {
+                        urlConnection.setRequestMethod("GET");
+                    } catch (ProtocolException e) {
+                        e.printStackTrace();
+                    }
                     urlConnection.setDoInput(true);
 
-                    urlConnection.connect();
-                    int response = urlConnection.getResponseCode();
-                    Log.d("urlConnection: " + command, "The response is: " + response);
-                    is = urlConnection.getInputStream();
+                    // HTTP GET call to server
+                    try {
+                        urlConnection.connect();
+                        int response = urlConnection.getResponseCode();
+                        Log.d("urlConnection: query", "The response is: " + response);
+                        is = urlConnection.getInputStream();
 
-                    // Convert the InputStream into a string
-                    String contentAsString = readIt(is, len);
-                    Log.d("urlResults", contentAsString);
-                } catch (IOException e) { e.printStackTrace(); }
-                break;
-            case "query":
-                try { urlConnection.setRequestMethod("GET"); }
-                catch (ProtocolException e) { e.printStackTrace(); }
-                urlConnection.setDoInput(true);
+                        // Convert the InputStream into a string
+                        String contentAsString = readIt(is, len);
+                        Log.d("urlResults", contentAsString);
 
-                // HTTP GET call to server
-                try {
-                    urlConnection.connect();
-                    int response = urlConnection.getResponseCode();
-                    Log.d("urlConnection: query", "The response is: " + response);
-                    is = urlConnection.getInputStream();
+                        // TO-DO: ADD RECORDS TO APPROPRIATE PLACES IN TABLES
 
-                    // Convert the InputStream into a string
-                    String contentAsString = readIt(is, len);
-                    Log.d("urlResults", contentAsString);
-
-                    // TO-DO: ADD RECORDS TO APPROPRIATE PLACES IN TABLES
-
-                } catch (IOException e) { e.printStackTrace(); }
-                break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+            return true;
+        } catch (Exception err) {
+            Log.d("ERROR", "Error in connecting to server!");
+            Log.d("ERROR", err.getMessage());
+            Log.d("ERROR", err.getStackTrace().toString());
+            return false;
         }
-        return true;
     }
 
     @Override
