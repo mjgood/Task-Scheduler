@@ -230,7 +230,7 @@ public class DailyTaskList extends AppCompatActivity implements
         String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI, values)).getLastPathSegment();
 
         Intent intent = new Intent(this, TaskEdit.class);
-        intent.putExtra("itemSelected", taskEdit);
+        intent.putExtra("itemSelected", Integer.parseInt(taskEdit));
         startActivity(intent);
     }
 
