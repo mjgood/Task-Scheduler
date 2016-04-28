@@ -33,32 +33,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/sectionDatasePort"
-        android:id="@+id/sectionUsername">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Server Username:"/>
-        <EditText
-            android:layout_width="128dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sectionUsername"
-        android:id="@+id/sectionPassword">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Server Password:"/>
-        <EditText
-            android:layout_width="128dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sectionPassword"
         android:id="@+id/sectionAutoSync">
         <TextView
             android:layout_width="wrap_content"
