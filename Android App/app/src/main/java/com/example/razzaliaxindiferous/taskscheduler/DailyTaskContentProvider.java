@@ -126,9 +126,10 @@ public class DailyTaskContentProvider extends ContentProvider {
         }
         getContext().getContentResolver().notifyChange(uri, null);
         RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+        String idToDelete = selection.substring(6, selection.length());
         updateRemote.execute("delete",
                 serverAddress, port,
-                "id", selection);
+                "id", idToDelete);
 
         return count;
     }

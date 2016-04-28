@@ -27,6 +27,8 @@ public class TaskView extends AppCompatActivity {
 
     private int taskSelected = -1;
 
+    private String[] queryResults;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,26 +39,21 @@ public class TaskView extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         taskSelected = extras.getInt("itemSelected", 0);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         ContentResolver cr = getContentResolver();
         String[] values = {
                 "_id",
                 "subject",
                 "description",
                 "priority",
+                "completion_status",
+                "completion_percentage",
+                "start_time",
+                "priority",
                 "end_time"};
 
-        String[] results = new String[5];
+        queryResults = new String[9];
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         Log.d ("Task Selected:", Long.toString(taskSelected));
         String[] selectionArgs = {
@@ -69,6 +66,10 @@ public class TaskView extends AppCompatActivity {
             ((TextView) findViewById(R.id.textViewDescription)).setText(c.getString(2));
             ((TextView) findViewById(R.id.textViewPriority)).setText(c.getString(3));
             ((TextView) findViewById(R.id.textViewEndDate)).setText(c.getString(4));
+
+            for (int ctr = 0; ctr < queryResults.length; ctr++) {
+                queryResults[ctr] = c.getString(ctr);
+            }
         }
     }
 
@@ -85,6 +86,46 @@ public class TaskView extends AppCompatActivity {
     public void taskEdit(View view)
     {
         Intent intent = new Intent(this, TaskEdit.class);
+        intent.putExtra("itemSelected", taskSelected);
+        startActivity(intent);
+    }
+
+    //User chooses to delete the task
+    public void taskDelete(View view)
+    {
+        ContentResolver cr = getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put("id", taskSelected);
+        values.put("subject", "<New Task>");
+        values.put("description", "Description hardcoded at 12:56AM");
+
+        String where = "_id = " + taskSelected;
+        int deleteFlag = (cr.delete(DailyTaskContentProvider.CONTENT_URI, where, null));
+
+        Intent intent = new Intent(this, DailyTaskList.class);
+        intent.putExtra("itemSelected", taskSelected);
+        startActivity(intent);
+    }
+
+    //User chooses to complete the task
+    public void taskComplete(View view)
+    {
+        ContentResolver cr = getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put("id", taskSelected);
+        values.put("subject", queryResults[1]);
+        values.put("description", queryResults[2]);
+        values.put("priority", queryResults[3]);
+        values.put("completion_status", 1);
+        values.put("completion_percentage", queryResults[5]);
+        values.put("start_time", queryResults[6]);
+        values.put("priority", queryResults[7]);
+        values.put("end_time", queryResults[8]);
+
+        String where = "_id = " + taskSelected;
+        int deleteFlag = (cr.delete(DailyTaskContentProvider.CONTENT_URI, where, null));
+
+        Intent intent = new Intent(this, DailyTaskList.class);
         intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
     }

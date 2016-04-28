@@ -4,8 +4,8 @@
     <PreferenceCategory
         android:title="@string/pref_rdb_category">
         <CheckBoxPreference
-            android:key="@string/pref_rdb_category"
-            android:title="@string/pref_rdb"
+            android:key="@string/pref_rdb"
+            android:title="@string/pref_rdb_category"
             android:summary="@string/pref_rdb_summary"
             android:defaultValue="false" />
 
