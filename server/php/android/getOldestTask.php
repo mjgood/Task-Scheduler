@@ -1,17 +1,16 @@
 <?php
-/* This PHP script gets a list of task_ids from
- * the new_tasks table, returning an array of
- * JSON tuples.
- * Tuples are of the format task_id:<id>
+/* This PHP script gets a task from new_tasks
+ * with the lowest id, and returns the entire tuple.
  */
 include '../credentials.php';
 
 $link = mysqli_connect($db_host,$db_user,$db_pass,$database);
 
-if(!$link)
+if(!$link) {
   die('Could not connect: ' . mysqli_connect_error());
+}
 
-$query = "SELECT task_id FROM new_tasks ORDER BY task_id ASC;";
+$query = "SELECT * FROM new_tasks ORDER BY task_id ASC LIMIT 1";
 
 $result = mysqli_query($link, $query);
 
