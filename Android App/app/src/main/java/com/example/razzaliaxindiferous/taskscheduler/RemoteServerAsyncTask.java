@@ -6,18 +6,26 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Razzalia Xindiferous on 4/25/2016.
@@ -44,156 +52,167 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         String serverAddress = params[1];
         String serverPort = params[2];
         URL url = null;
-        HttpURLConnection urlConnection = null;
+
+        //Prep the string.
         String connectString = "http://";
-            connectString = connectString.concat(serverAddress);
+        connectString = connectString.concat(serverAddress);
+        //Only add the port and semi colon if necessary.
+        if(serverPort!=null) {
             connectString = connectString.concat(":");
             connectString = connectString.concat(serverPort);
-            connectString = connectString.concat("/php/android/");
+        }
+        connectString = connectString.concat("/php/android/");
+        HttpURLConnection urlConnection = null;
 
-        //create connection string
-        switch (command) {
+
+        String postParams="";
+
+        //Can probably create a function for some of this.
+        switch(command){
             case "insert":
-                connectString = connectString.concat("insertTask.php?");
-                for (int ctr = 3; ctr < params.length; ctr++) {
-                    if (ctr > 3) { connectString = connectString.concat("&"); }
-                    connectString = connectString.concat(params[ctr]);
-                    connectString = connectString.concat("=");
-                    ctr++;
-                    connectString = connectString.concat(params[ctr]);
+                connectString = connectString.concat("insertTask.php");
+                for(int c=3; c<params.length; c++){
+                    if(c>3)
+                        postParams+="&";
+                    //If it's numeric, no quotes.
+                    //If it's not numeric, use quotes.
+                    if(isNumeric(params[c]))
+                        postParams+=params[c]+"="+params[c+1];
+                    else
+                        postParams+=params[c]+"=\""+params[c+1]+"\"";
+                    c++;
                 }
                 break;
             case "update":
-                connectString = connectString.concat("updateTask.php?");
-                for (int ctr = 3; ctr < params.length; ctr++) {
-                    if (ctr > 3) { connectString = connectString.concat("&"); }
-                    connectString = connectString.concat(params[ctr]);
-                    connectString = connectString.concat("=");
-                    ctr++;
-                    connectString = connectString.concat(params[ctr]);
+                connectString = connectString.concat("updateTask.php");
+                for(int c=3; c<params.length; c++){
+                    if(c>3)
+                        postParams+="&";
+                    //If it's numeric, no quotes.
+                    //If it's not numeric, use quotes.
+                    if(isNumeric(params[c]))
+                        postParams+=params[c]+"="+params[c+1];
+                    else
+                        postParams+=params[c]+"=\""+params[c+1]+"\"";
+                    c++;
                 }
                 break;
             case "delete":
-                connectString = connectString.concat("deleteTaskById.php?");
-                connectString = connectString.concat(params[3]);
-                connectString = connectString.concat("=");
-                connectString = connectString.concat(params[4]);
+                connectString = connectString.concat("deleteTaskById.php");
+                for(int c=3; c<params.length; c++){
+                    if(c>3)
+                        postParams+="&";
+                    //If it's numeric, no quotes.
+                    //If it's not numeric, use quotes.
+                    if(isNumeric(params[c]))
+                        postParams+=params[c]+"="+params[c+1];
+                    else
+                        postParams+=params[c]+"=\""+params[c+1]+"\"";
+                    c++;
+                }
                 break;
             case "query":
                 connectString = connectString.concat("getNewTaskList.php");
                 break;
         }
 
+        //URL connection attempt.
         try {
-            Log.d("Preformat URL: ", connectString);
-            //format connect string to HTTP POST style
-            connectString = connectString.replace("=", "=%27");
-            connectString = connectString.replace("&", "%27&");
-            connectString = connectString.replace(" ", "%20");
-            connectString = connectString.replace("'", "");
-            if (command != "query") {
-                connectString = connectString.concat("%27");
-            }
-            Log.d("Postformat URL: ", connectString);
-
-
-            //create connection URL
-            try {
-                url = new URL(connectString);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            try {
-                urlConnection = (HttpURLConnection) url.openConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            urlConnection.setReadTimeout(10000);        //timeout for read
-            urlConnection.setConnectTimeout(15000);     //timeout for connect
-            InputStream is = null;
-            OutputStream os = null;
-            int len = 500;              //length of returned data to read - may need to be increased?
-
-            //execute call to server
-            switch (command) {
-                case "insert":
-                case "update":
-                case "delete":
-                    try {
-                        urlConnection.setDoOutput(true);
-                        urlConnection.setRequestMethod("POST");
-                        urlConnection.setDoInput(true);
-
-                        urlConnection.connect();
-                        int response = urlConnection.getResponseCode();
-                        Log.d("urlConnection: " + command, "The response is: " + response);
-                        is = urlConnection.getInputStream();
-
-                        // Convert the InputStream into a string
-                        String contentAsString = readIt(is, len);
-                        Log.d("urlResults", contentAsString);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case "query":
-                    try {
-                        urlConnection.setRequestMethod("GET");
-                    } catch (ProtocolException e) {
-                        e.printStackTrace();
-                    }
-                    urlConnection.setDoInput(true);
-
-                    // HTTP GET call to server
-                    try {
-                        urlConnection.connect();
-                        int response = urlConnection.getResponseCode();
-                        Log.d("urlConnection: query", "The response is: " + response);
-                        is = urlConnection.getInputStream();
-
-                        // Convert the InputStream into a string
-                        String contentAsString = readIt(is, len);
-                        Log.d("urlResults", contentAsString);
-
-                        /*ContentResolver cr = getContentResolver();
-                        ContentValues values = new ContentValues();
-                        values.put("subject", "<New Task>");
-                        values.put("description", "Description hardcoded at 12:56AM");
-                        values.put("priority", "0");
-                        values.put("completion_status", "0");
-                        values.put("completion_percentage", "0");
-                        values.put("start_time", "1999-12-31");
-                        values.put("end_time", "1999-12-31");
-
-                        String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI, values)).getLastPathSegment();*/
-
-                        try {
-                        JSONArray jArray = new JSONArray(contentAsString);
-                        for(int i=0;i<jArray.length();i++) {
-                            JSONObject json_data = jArray.getJSONObject(i);
-                            Log.i("log_tag", "id: " + json_data.getInt("id") +
-                                    ", name: " + json_data.getString("name") +
-                                    ", sex: " + json_data.getInt("sex") +
-                                    ", birthyear: " + json_data.getInt("birthyear")
-                            );
-                        }
-                        } catch (Exception err) { Log.d("ERROR: ", err.getStackTrace().toString()); }
-
-                        // TO-DO: ADD RECORDS TO APPROPRIATE PLACES IN TABLES
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-            return true;
-        } catch (Exception err) {
-            Log.d("ERROR", "Error in connecting to server!");
-            Log.d("ERROR", err.getMessage());
-            Log.d("ERROR", err.getStackTrace().toString());
+            url = new URL(connectString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
             return false;
         }
+
+        //Open the connection.
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        //Set our Request properties.
+        urlConnection.setRequestProperty("USER-AGENT","Mozilla/5.0");
+        urlConnection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+
+        //We are doing output and input.
+        urlConnection.setDoOutput(true);
+        urlConnection.setDoInput(true);
+
+        //Set our method to POST.
+        try {
+            urlConnection.setRequestMethod("POST");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        //TIMEOUT for READ/CONNECT
+        urlConnection.setReadTimeout(10000);
+        urlConnection.setConnectTimeout(15000);
+
+        //Our PrintWriter will be used for POSTING our output.
+        PrintWriter out;
+        try {
+            out = new PrintWriter(urlConnection.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        //POST our params, and close.
+        out.print(postParams);
+        out.close();
+
+        //Use a buffered reader to read the input.
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        //Use string builder to build our string. Should do the same for the previous string(s).
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        try {
+            while((line = br.readLine())!=null){
+                sb.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        //Close our buffered reader.
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+        //Should be a result. If actually a string, it's an error.
+        //If null, no results.
+        //If boolean, pass/failed.
+        //If it gets parsed as a JSONArray, then we're successful.
+        //We did it. :)
+        String result = sb.toString();
+        try{
+            JSONArray jArray = new JSONArray(result);
+            for(int i=0; i<jArray.length(); i++){
+                JSONObject json_data = jArray.getJSONObject(i);
+                Log.i("log_tag",json_data.toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -230,4 +249,19 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         reader.read(buffer);
         return new String(buffer);
     }
+
+    public boolean isNumeric(String s){
+        switch(s){
+            case "id":
+            case "completion_status":
+            case "completion_percentage":
+            case "repeat_id":
+            case "priority":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+
 }
