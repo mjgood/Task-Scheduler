@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.text.format.Time;
+import android.text.method.TextKeyListener;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
@@ -49,9 +50,11 @@ public class DailyTaskList extends AppCompatActivity implements
     SQLiteDatabase taskDB;
     long currentRow;
     Calendar dateDisplay;
+    String showDate;
 
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,38 +67,78 @@ public class DailyTaskList extends AppCompatActivity implements
         Log.d("PREFS", prefs.getString(getString(R.string.pref_rdb_uri), ""));
         Log.d("PREFS", prefs.getString(getString(R.string.pref_rdb_port), ""));
 
+        //Set date being displayed to the current day
         dateDisplay = new GregorianCalendar(
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.YEAR)));
+        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.MONTH)));
+        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setCalendar(dateDisplay);
+        showDate = sdf.format(dateDisplay.getTime());
+        ((EditText) findViewById(R.id.textDateDisplay)).setText(showDate);
+
+        //Set content view
         setContentView(R.layout.content_daily_task_list);
         if (savedInstanceState != null)
             filtered = savedInstanceState.getBoolean("filtered");
 
+        //Set the Cursor Adapter for the cursor item loader
         mAdapter = new SimpleCursorAdapter(this, R.layout.list_item_daily_task, null,
-                new String[]{"_id", "subject", "description", "deadline_time",
-                        "completion_status", "completion_percentage"},
+                new String[]{"_id", "subject", "description", "completion_status",
+                        "end_time", "completion_percentage"},
                 new int[]{R.id.txtId,
                         R.id.txtContent,
                         R.id.txtDescription,
-                        R.id.txtDeadline,
                         R.id.txtStatus,
+                        R.id.txtEnd,
                         R.id.txtPercent}, 0);
 
+        //colorize field if task is complete or overdue
         mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                /*if (columnIndex == 4) {
-                    if (((TextView) view.findViewById(R.id.txtStatus)).getText().equals("1")) {
-                        ((LinearLayout) view.findViewById(R.id.taskItem)).setBackgroundColor(getResources().getColor(R.color.colorGrayGreen));
-                        ((TextView) view.findViewById(R.id.txtStatus)).setText("Done");
+            public boolean setViewValue(View newView, Cursor cursor, int columnIndex) {
+                if (columnIndex == cursor.getColumnIndex("completion_status")) {
+                    if (cursor.getInt(columnIndex) == 1){
+                        try {
+                            ((LinearLayout) newView.getRootView().getRootView()).setBackgroundColor(getResources().getColor(R.color.colorGrayGreen));
+                            ((TextView) newView.findViewById(R.id.txtStatus)).setText("Done");
+                        } catch (Exception e) {}
                     }
-                    return false;
-                }*/
+                    return true;
+                }
+                if (columnIndex == cursor.getColumnIndex("end_time")) {
+                    String[] splitResult = cursor.getString(columnIndex).split("-");
+                    boolean overdue = false;
+
+                    try {
+                        if (!((TextView) newView.getRootView().getRootView().getRootView().findViewById(R.id.txtStatus)).getText().equals("Done")) {
+                            if (dateDisplay.get(Calendar.YEAR) > Integer.parseInt(splitResult[0])) {
+                                overdue = true;
+                            } else if (dateDisplay.get(Calendar.YEAR) == Integer.parseInt(splitResult[0])) {
+                                if (dateDisplay.get(Calendar.MONTH) + 1 > Integer.parseInt(splitResult[1])) {
+                                    overdue = true;
+                                } else if (dateDisplay.get(Calendar.MONTH) + 1 == Integer.parseInt(splitResult[1])) {
+                                    if (dateDisplay.get(Calendar.DAY_OF_MONTH) > Integer.parseInt(splitResult[2])) {
+                                        overdue = true;
+                                    }
+                                }
+                            }
+
+                            if (overdue) {
+                                ((LinearLayout) newView.getRootView().getRootView().getRootView()).setBackgroundColor(getResources().getColor(R.color.colorGrayRed));
+                            }
+                        }
+                    } catch (Exception e) {}
+                    return true;
+                }
                 return false;
             }
         });
 
+        //run content provider on ListView
         ListView listView = (ListView) findViewById(R.id.dailyTaskList);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(this);
@@ -122,10 +165,6 @@ public class DailyTaskList extends AppCompatActivity implements
                     prefs.getString(getString(R.string.pref_rdb_uri), ""),
                     prefs.getString(getString(R.string.pref_rdb_port), ""));
         }
-
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
     }
 
     @Override
@@ -167,17 +206,11 @@ public class DailyTaskList extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] columns = {"_id", "subject", "deadline_time", "description",
+        String[] columns = {"_id", "subject", "start_time", "end_time", "description",
                 "completion_status", "completion_percentage"};
-        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.YEAR)));
-        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.MONTH)));
-        Log.d("Where", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setCalendar(dateDisplay);
-        String dateFormatted = sdf.format(dateDisplay.getTime());
-
-        String where = null;
+        String dateFormatted = showDate + " 00:00:00";
+        String where = "completion_status = 0 AND start_time <= DATETIME('" + dateFormatted + "')";
 
         //INSERT REFERENCE TO CONTENT PROVIDER
         return new CursorLoader(this, DailyTaskContentProvider.CONTENT_URI,
@@ -186,10 +219,6 @@ public class DailyTaskList extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        Log.d("Info:", cursor.toString());
-        for (int ctr = 0; ctr < cursor.getColumnCount(); ctr++) {
-            Log.d("Info:", cursor.getColumnName(ctr));
-        }
         mAdapter.swapCursor(cursor);
     }
 
@@ -228,9 +257,9 @@ public class DailyTaskList extends AppCompatActivity implements
     //########################################################################
 
     //User selects the Pick Date button in title bar
-    public void pickDate(MenuItem item) {
-        //DialogFragment newFragment = new DatePickerFragment();
-        //newFragment.show(getSupportFragmentManager (), "datePicker");
+    public void pickDate(View view) {
+        String showDate = ((EditText) view.getRootView().findViewById(R.id.textDateDisplay)).getText().toString();
+        getLoaderManager().initLoader(1, null, this);
     }
 
     //User selects the Create Task button in title bar
@@ -238,7 +267,7 @@ public class DailyTaskList extends AppCompatActivity implements
         ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
         values.put("subject", "<New Task>");
-        values.put("description", "Description hardcoded at 12:56AM");
+        values.put("description", "");
         values.put("priority", "0");
         values.put("completion_status", "0");
         values.put("completion_percentage", "0");

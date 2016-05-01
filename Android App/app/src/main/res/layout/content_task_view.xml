@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Repeat: "/>
+                    android:text="End at: "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

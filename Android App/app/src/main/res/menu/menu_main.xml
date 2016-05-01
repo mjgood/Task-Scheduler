@@ -9,11 +9,6 @@ Michael Good, mjg5632
     tools:context="com.example.razzaliaxindiferous.taskscheduler.DailyTaskList">
 
     <!-- daily task view date !-->
-    <item android:id="@+id/date_actionButton"
-        android:orderInCategory="101"
-        android:title="4/28/2016"
-        app:showAsAction="always|withText"
-        android:onClick="pickDate"/>
  <!-- add task !-->
     <item android:id="@+id/addTask_actionButton"
         android:orderInCategory="102"

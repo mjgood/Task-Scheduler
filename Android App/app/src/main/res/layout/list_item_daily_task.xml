@@ -34,7 +34,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/txtDeadline"
+                android:id="@+id/txtEnd"
                 android:gravity="right"
                 android:focusable="false"
                 android:text="Hadssad!"
