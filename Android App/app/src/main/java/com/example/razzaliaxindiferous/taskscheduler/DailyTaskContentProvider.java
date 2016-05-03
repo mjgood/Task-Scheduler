@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 public class DailyTaskContentProvider extends ContentProvider {
     private Database taskDB;
@@ -33,7 +34,8 @@ public class DailyTaskContentProvider extends ContentProvider {
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, TASKS);
         uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", TASKS_ID);
-        uriMatcher.addURI(AUTHORITY, BASE_PATH, TASKS_NO_REMOTE);
+        uriMatcher.addURI(AUTHORITY, NO_REMOTE, TASKS_NO_REMOTE);
+        uriMatcher.addURI(AUTHORITY, NO_LOCAL, TASKS_NO_LOCAL);
     }
 
     String serverAddress = null;
@@ -103,6 +105,7 @@ public class DailyTaskContentProvider extends ContentProvider {
                         selectionArgs, null, null, sortOrder);
                 break;
             default:
+                Log.d("uri: ", CONTENT_URI.toString());
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
