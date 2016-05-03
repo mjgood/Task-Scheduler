@@ -78,7 +78,7 @@ public class NavigationSidebar extends AppCompatActivity implements
         // update the local server if it hasn't been updated recently
         try {
             if (getIntent().getExtras().getBoolean("loadedFromServer") != true) {
-                RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+                RemoteServerAsyncTask rsat = new RemoteServerAsyncTask(getApplicationContext());
                 rsat.setUpdateRemoteQuery(this);
 
                 // TO-DO: Make server, port dynamic
@@ -87,7 +87,7 @@ public class NavigationSidebar extends AppCompatActivity implements
                         prefs.getString(getString(R.string.pref_rdb_port), ""));
             }
         } catch (NullPointerException e) {
-            RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+            RemoteServerAsyncTask rsat = new RemoteServerAsyncTask(getApplicationContext());
             rsat.setUpdateRemoteQuery(this);
             rsat.execute("query",
                     prefs.getString(getString(R.string.pref_rdb_uri), ""),

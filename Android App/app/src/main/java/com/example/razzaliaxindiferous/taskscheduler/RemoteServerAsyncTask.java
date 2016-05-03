@@ -2,6 +2,7 @@ package com.example.razzaliaxindiferous.taskscheduler;
 
 import android.content.*;
 import android.content.*;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -37,7 +38,12 @@ import java.util.HashMap;
 public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
     String command = "";
     UpdateOnRemoteQueryFinished toUpdate = null;
+    private Context rsContext = null;
 
+
+    public RemoteServerAsyncTask(Context context){
+        rsContext = context;
+    }
     // Connect to server on AsyncTask thread
     //  Params:
     //      0 - Command
@@ -203,6 +209,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         //If it gets parsed as a JSONArray, then we're successful.
         //We did it. :)
         String result = sb.toString();
+        Log.w("RESULT",result);
         if(result.equalsIgnoreCase("true")){
             //Database interaction finished successfully
             return true;
@@ -218,7 +225,70 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                     for(int i=0; i<jArray.length(); i++){
                         JSONObject json_data = jArray.getJSONObject(i);
                         Log.d("RESPONSE",json_data.toString());
-                        boolean cont=updateLocal(json_data);
+                        Database taskDB = Database.getInstance(rsContext);
+                        SQLiteDatabase db = taskDB.getWritableDatabase();
+                        ContentValues values = new ContentValues();
+
+                        values.put("subject", json_data.getString("subject"));
+                        values.put("description", json_data.getString("description"));
+                        try {
+                            values.put("priority", json_data.getInt("priority"));
+                        }catch(Exception e){
+                            values.put("priority", 0);
+                        }
+                        try {
+                            values.put("completion_status", json_data.getInt("completion_status"));
+                        }catch(Exception e){
+                            values.put("Completion_status",0);
+                        }
+                        try {
+                            values.put("completion_percentage", json_data.getInt("completion_percentage"));
+                        }catch(Exception e){
+                            values.put("completion_percentage", 0);
+                        }
+                        try {
+                            values.put("start_time", json_data.getString("start_time"));
+                        }catch(Exception e){
+                            values.put("start_time", "1999-12-25");
+                        }
+                        try {
+                            values.put("end_time", json_data.getString("end_time"));
+                        }catch(Exception e){
+                            values.put("end_time", "1999-12-25");
+                        }
+                        long id= db.insert("tasks",null, values);
+                        Log.w("id",Long.toString(id));
+                        HttpURLConnection uConnect = null;
+                        String conn = "http://"+serverAddress+":"+serverPort+"/php/android/deleteTaskById.php?new_task=1&id="+json_data.getInt("task_id");
+                        URL url2 = null;
+                        try {
+                            url2=new URL(conn);
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            uConnect = (HttpURLConnection) url2.openConnection();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        uConnect.setReadTimeout(10000);
+                        uConnect.setConnectTimeout(15000);
+                        try {
+                            uConnect.setRequestMethod("GET");
+                        } catch (ProtocolException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            uConnect.connect();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        db.close();
+
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

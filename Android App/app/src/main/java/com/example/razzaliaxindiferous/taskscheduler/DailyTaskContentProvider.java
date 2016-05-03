@@ -71,7 +71,7 @@ public class DailyTaskContentProvider extends ContentProvider {
         }
         getContext().getContentResolver().notifyChange(uri, null);
         if (insertRemote) {
-            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask(getContext());
             updateRemote.execute("insert",
                     serverAddress, port,
                     "id", Long.toString(id),
@@ -136,7 +136,7 @@ public class DailyTaskContentProvider extends ContentProvider {
         }
         getContext().getContentResolver().notifyChange(uri, null);
         if (insertRemote) {
-            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask(getContext());
             updateRemote.execute("update",
                     serverAddress, port,
                     "id", values.getAsString("_id"),
@@ -175,7 +175,7 @@ public class DailyTaskContentProvider extends ContentProvider {
         }
         getContext().getContentResolver().notifyChange(uri, null);
         if (insertRemote) {
-            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask(getContext());
             String idToDelete = selection.substring(6, selection.length());
             updateRemote.execute("delete",
                     serverAddress, port,

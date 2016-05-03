@@ -147,7 +147,7 @@ public class DailyTaskList extends AppCompatActivity implements
         if (prefs.getBoolean(getString(R.string.pref_rdb_category), false)) {
             try {
                 if (getIntent().getExtras().getBoolean("loadedFromServer") != true) {
-                    RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+                    RemoteServerAsyncTask rsat = new RemoteServerAsyncTask(getApplicationContext());
                     rsat.setUpdateRemoteQuery(this);
 
                     // TO-DO: Make server, port dynamic
@@ -156,7 +156,7 @@ public class DailyTaskList extends AppCompatActivity implements
                             prefs.getString(getString(R.string.pref_rdb_port), ""));
                 }
             } catch (NullPointerException e) {
-                RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+                RemoteServerAsyncTask rsat = new RemoteServerAsyncTask(getApplicationContext());
                 rsat.setUpdateRemoteQuery(this);
                 rsat.execute("query",
                         prefs.getString(getString(R.string.pref_rdb_uri), ""),
