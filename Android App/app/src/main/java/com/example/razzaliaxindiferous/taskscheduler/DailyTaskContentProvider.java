@@ -16,15 +16,24 @@ public class DailyTaskContentProvider extends ContentProvider {
 
     private static final String AUTHORITY = "com.example.razzaliaxindiferous.taskscheduler";
     private static final String BASE_PATH = "tasks";
+    private static final String NO_REMOTE = "tasks_no_remote";
+    private static final String NO_LOCAL = "tasks_no_local";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" +
             BASE_PATH);
+    public static final Uri CONTENT_URI_NOREMOTE = Uri.parse("content://" + AUTHORITY + "/" +
+            NO_REMOTE);
+    public static final Uri CONTENT_URI_NOLOCAL = Uri.parse("content://" + AUTHORITY + "/" +
+            NO_LOCAL);
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private static final int TASKS = 1;
     private static final int TASKS_ID = 2;
+    private static final int TASKS_NO_REMOTE = 3;
+    private static final int TASKS_NO_LOCAL = 4;
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, TASKS);
         uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", TASKS_ID);
+        uriMatcher.addURI(AUTHORITY, BASE_PATH, TASKS_NO_REMOTE);
     }
 
     String serverAddress = null;
@@ -43,26 +52,35 @@ public class DailyTaskContentProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         long id = -1;
+        boolean insertRemote = true;
         SQLiteDatabase db = taskDB.getWritableDatabase();
         switch (uriMatcher.match(uri)) {
             case TASKS:
                 id = db.insert("tasks", null, values);
                 break;
+            case TASKS_NO_REMOTE:
+                id = db.insert("tasks", null, values);
+                insertRemote = false;
+                break;
+            case TASKS_NO_LOCAL:
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
-        RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
-        updateRemote.execute("insert",
-                serverAddress, port,
-                "id", Long.toString(id),
-                "subject", values.getAsString("subject"),
-                "description", values.getAsString("description"),
-                "priority", values.getAsString("priority"),
-                "completion_status", values.getAsString("completion_status"),
-                "completion_percentage", values.getAsString("completion_percentage"),
-                "start_time", values.getAsString("start_time"),
-                "end_time", values.getAsString("end_time"));
+        if (insertRemote) {
+            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+            updateRemote.execute("insert",
+                    serverAddress, port,
+                    "id", Long.toString(id),
+                    "subject", values.getAsString("subject"),
+                    "description", values.getAsString("description"),
+                    "priority", values.getAsString("priority"),
+                    "completion_status", values.getAsString("completion_status"),
+                    "completion_percentage", values.getAsString("completion_percentage"),
+                    "start_time", values.getAsString("start_time"),
+                    "end_time", values.getAsString("end_time"));
+        }
 
         return Uri.parse(BASE_PATH + "/" + id);
     }
@@ -96,6 +114,7 @@ public class DailyTaskContentProvider extends ContentProvider {
                       String[] selectionArgs) {
         int count;
         SQLiteDatabase db = taskDB.getWritableDatabase();
+        boolean insertRemote = true;
         switch (uriMatcher.match(uri)){
             case TASKS:
                 count = db.update("tasks", values, selection, selectionArgs);
@@ -105,21 +124,27 @@ public class DailyTaskContentProvider extends ContentProvider {
                         appendIdToSelection(selection, uri.getLastPathSegment()),
                         selectionArgs);
                 break;
+            case TASKS_NO_REMOTE:
+                count = db.update("tasks", values, selection, selectionArgs);
+                insertRemote = false;
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri );
         }
         getContext().getContentResolver().notifyChange(uri, null);
-        RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
-        updateRemote.execute("update",
-                serverAddress, port,
-                "id", values.getAsString("_id"),
-                "subject", values.getAsString("subject"),
-                "description", values.getAsString("description"),
-                "priority", values.getAsString("priority"),
-                "completion_status", values.getAsString("completion_status"),
-                "completion_percentage", values.getAsString("completion_percentage"),
-                "start_time", values.getAsString("start_time"),
-                "end_time", values.getAsString("end_time"));
+        if (insertRemote) {
+            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+            updateRemote.execute("update",
+                    serverAddress, port,
+                    "id", values.getAsString("_id"),
+                    "subject", values.getAsString("subject"),
+                    "description", values.getAsString("description"),
+                    "priority", values.getAsString("priority"),
+                    "completion_status", values.getAsString("completion_status"),
+                    "completion_percentage", values.getAsString("completion_percentage"),
+                    "start_time", values.getAsString("start_time"),
+                    "end_time", values.getAsString("end_time"));
+        }
 
         return count;
     }
@@ -128,6 +153,7 @@ public class DailyTaskContentProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         int count;
         SQLiteDatabase db = taskDB.getWritableDatabase();
+        boolean insertRemote = true;
         switch (uriMatcher.match(uri)){
             case TASKS:
                 count = db.delete("tasks", selection, selectionArgs);
@@ -137,15 +163,21 @@ public class DailyTaskContentProvider extends ContentProvider {
                         appendIdToSelection(selection, uri.getLastPathSegment()),
                         selectionArgs);
                 break;
+            case TASKS_NO_REMOTE:
+                count = db.delete("tasks", selection, selectionArgs);
+                insertRemote = false;
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
-        RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
-        String idToDelete = selection.substring(6, selection.length());
-        updateRemote.execute("delete",
-                serverAddress, port,
-                "id", idToDelete);
+        if (insertRemote) {
+            RemoteServerAsyncTask updateRemote = new RemoteServerAsyncTask();
+            String idToDelete = selection.substring(6, selection.length());
+            updateRemote.execute("delete",
+                    serverAddress, port,
+                    "id", idToDelete);
+        }
 
         return count;
     }

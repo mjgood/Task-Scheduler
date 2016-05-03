@@ -90,6 +90,7 @@ public class TaskView extends AppCompatActivity {
     public void taskEdit(View view)
     {
         Intent intent = new Intent(this, TaskEdit.class);
+        intent.putExtra("newTask", false);
         intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
     }

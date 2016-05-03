@@ -29,6 +29,7 @@ public class TaskEdit extends AppCompatActivity {
 
     private int taskSelected = -1;
     private String completionStatus = "0";
+    private boolean newTask = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class TaskEdit extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         taskSelected = extras.getInt("itemSelected", 0);
+        newTask = extras.getBoolean("newTask", false);
 
         // Populate the edit task fields
         String[] values = {
@@ -109,7 +111,12 @@ public class TaskEdit extends AppCompatActivity {
         values.put("description", ((EditText)findViewById(R.id.editDescription)).getText().toString());
         values.put("completion_status", completionStatus);
 
-        cr.update(DailyTaskContentProvider.CONTENT_URI, values, "_id = "+taskSelected, null);
+        if (newTask) {
+            String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI_NOLOCAL, values)).getLastPathSegment();
+            cr.update(DailyTaskContentProvider.CONTENT_URI_NOREMOTE, values, "_id = " + taskSelected, null);
+        } else {
+            cr.update(DailyTaskContentProvider.CONTENT_URI, values, "_id = " + taskSelected, null);
+        }
 
         //We should really just go back to the list after everything. Or make it do so if a task is deleted.
         Intent intent = new Intent(this, TaskView.class);

@@ -265,17 +265,18 @@ public class DailyTaskList extends AppCompatActivity implements
     public void addTask(MenuItem item) {
         ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
-        values.put("subject", "####");
-        values.put("description", "####");
+        values.put("subject", "");
+        values.put("description", "");
         values.put("priority", "");
-        values.put("completion_status", "0");
+        values.put("completion_status", "");
         values.put("completion_percentage", "");
         values.put("start_time", "");
         values.put("end_time", "");
 
-        String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI, values)).getLastPathSegment();
+        String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI_NOREMOTE, values)).getLastPathSegment();
 
         Intent intent = new Intent(this, TaskEdit.class);
+        intent.putExtra("newTask", true);
         intent.putExtra("itemSelected", Integer.parseInt(taskEdit));
         startActivity(intent);
     }
