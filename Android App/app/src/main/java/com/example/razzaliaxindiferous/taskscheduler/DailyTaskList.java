@@ -181,6 +181,7 @@ public class DailyTaskList extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent updateMenuIntent = new Intent(this, DailyTaskList.class);
         switch (item.getItemId()) {
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -188,12 +189,12 @@ public class DailyTaskList extends AppCompatActivity implements
             case R.id.menu_showCompleted:
                 if (showCompleted) { showCompleted = false; }
                 else { showCompleted = true; }
-                getLoaderManager().initLoader(1, null, this);
+                startActivity(updateMenuIntent);
                 return true;
             case R.id.menu_showOverdue:
                 if (showOverdue) { showCompleted = false; }
                 else { showOverdue = true; }
-                getLoaderManager().initLoader(1, null, this);
+                startActivity(updateMenuIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -201,11 +202,13 @@ public class DailyTaskList extends AppCompatActivity implements
     }
 
     //########################################################################
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putBoolean("showCompleted", showCompleted);
         outState.putBoolean("showOverdue", showOverdue);
         outState.putBoolean("filtered", filtered);
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
