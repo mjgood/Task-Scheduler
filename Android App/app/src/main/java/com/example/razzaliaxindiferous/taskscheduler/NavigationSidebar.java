@@ -7,14 +7,18 @@
 package com.example.razzaliaxindiferous.taskscheduler;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-public class NavigationSidebar extends AppCompatActivity {
+public class NavigationSidebar extends AppCompatActivity implements
+                                                RemoteServerAsyncTask.UpdateOnRemoteQueryFinished {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,5 +69,34 @@ public class NavigationSidebar extends AppCompatActivity {
     {
         Intent intent = new Intent(this, MonthView.class);
         startActivity(intent);
+    }
+
+    //User forces a sync
+    public void onSync(View view) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // update the local server if it hasn't been updated recently
+        try {
+            if (getIntent().getExtras().getBoolean("loadedFromServer") != true) {
+                RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+                rsat.setUpdateRemoteQuery(this);
+
+                // TO-DO: Make server, port dynamic
+                rsat.execute("query",
+                        prefs.getString(getString(R.string.pref_rdb_uri), ""),
+                        prefs.getString(getString(R.string.pref_rdb_port), ""));
+            }
+        } catch (NullPointerException e) {
+            RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+            rsat.setUpdateRemoteQuery(this);
+            rsat.execute("query",
+                    prefs.getString(getString(R.string.pref_rdb_uri), ""),
+                    prefs.getString(getString(R.string.pref_rdb_port), ""));
+        }
+    }
+
+    //Sync is finished
+    public void onRemoteQueryFinished() {
+        Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
     }
 }

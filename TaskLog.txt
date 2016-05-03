@@ -1,0 +1,7 @@
+[test] - Don't update remote database if 'sync' is not checked
+[test] - Manual update button
+[done] - Hide Weekly
+[test] - <New Task> is annoying
+[wha?] - Delete Task needs to redirect the app
+[test] - Complete Task should *not* redirect the app
+[w-ip] - Clean up log.d

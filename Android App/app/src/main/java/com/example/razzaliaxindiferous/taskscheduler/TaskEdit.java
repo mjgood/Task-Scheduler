@@ -56,15 +56,18 @@ public class TaskEdit extends AppCompatActivity {
                 Long.toString(taskSelected)
         };
         Cursor c = getContentResolver().query(DailyTaskContentProvider.CONTENT_URI, values, "_id=?", selectionArgs, null);
-        if (c.moveToFirst()) {
-            ((EditText) findViewById(R.id.editTaskName)).setText(c.getString(1));
-            ((EditText) findViewById(R.id.editCompletion)).setText(c.getString(c.getColumnIndex("completion_percentage")));
-            ((EditText) findViewById(R.id.editTimeStart)).setText(c.getString(c.getColumnIndex("start_time")));
-            ((EditText) findViewById(R.id.editTimeEnd)).setText(c.getString(c.getColumnIndex("end_time")));
-            ((EditText) findViewById(R.id.editPriority)).setText(c.getString(c.getColumnIndex("priority")));
-            ((EditText) findViewById(R.id.editDescription)).setText(c.getString(c.getColumnIndex("description")));
-            completionStatus = c.getString(c.getColumnIndex("completion_status"));
-        }
+        try {
+            if (c.moveToFirst()) {
+                if (!c.getString(1).equals("")) { ((EditText) findViewById(R.id.editTaskName)).setText(c.getString(1));  }
+
+                if (!c.getString(c.getColumnIndex("completion_percentage")).equals("")) { ((EditText) findViewById(R.id.editCompletion)).setText(c.getString(c.getColumnIndex("completion_percentage"))); }
+                if (!c.getString(c.getColumnIndex("start_time")).equals("")) { ((EditText) findViewById(R.id.editTimeStart)).setText(c.getString(c.getColumnIndex("start_time"))); }
+                if (!c.getString(c.getColumnIndex("end_time")).equals("")) { ((EditText) findViewById(R.id.editTimeEnd)).setText(c.getString(c.getColumnIndex("end_time"))); }
+                if (!c.getString(c.getColumnIndex("priority")).equals("")) { ((EditText) findViewById(R.id.editPriority)).setText(c.getString(c.getColumnIndex("priority"))); }
+                if (!c.getString(c.getColumnIndex("description")).equals("")) { ((EditText) findViewById(R.id.editDescription)).setText(c.getString(c.getColumnIndex("description"))); }
+                completionStatus = c.getString(c.getColumnIndex("completion_status"));
+            }
+        } catch (Exception e) {Log.d("Error:", "c.moveToFirst was null in TakEdit");}
         c.close();
     }
 

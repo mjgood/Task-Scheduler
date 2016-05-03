@@ -64,17 +64,15 @@ public class DailyTaskList extends AppCompatActivity implements
 
         //SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Log.d("PREFS", prefs.getString(getString(R.string.pref_rdb_uri), ""));
-        Log.d("PREFS", prefs.getString(getString(R.string.pref_rdb_port), ""));
 
         //Set date being displayed to the current day
         dateDisplay = new GregorianCalendar(
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.YEAR)));
-        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.MONTH)));
-        Log.d ("Where", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
+        Log.d("Where", Integer.toString(dateDisplay.get(Calendar.YEAR)));
+        Log.d("Where", Integer.toString(dateDisplay.get(Calendar.MONTH)));
+        Log.d("Where", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setCalendar(dateDisplay);
@@ -101,11 +99,12 @@ public class DailyTaskList extends AppCompatActivity implements
         mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             public boolean setViewValue(View newView, Cursor cursor, int columnIndex) {
                 if (columnIndex == cursor.getColumnIndex("completion_status")) {
-                    if (cursor.getInt(columnIndex) == 1){
+                    if (cursor.getInt(columnIndex) == 1) {
                         try {
                             ((LinearLayout) newView.getRootView().getRootView()).setBackgroundColor(getResources().getColor(R.color.colorGrayGreen));
                             ((TextView) newView.findViewById(R.id.txtStatus)).setText("Done");
-                        } catch (Exception e) {}
+                        } catch (Exception e) {
+                        }
                     }
                     return true;
                 }
@@ -131,7 +130,8 @@ public class DailyTaskList extends AppCompatActivity implements
                                 ((LinearLayout) newView.getRootView().getRootView().getRootView()).setBackgroundColor(getResources().getColor(R.color.colorGrayRed));
                             }
                         }
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
                     return true;
                 }
                 return false;
@@ -146,24 +146,24 @@ public class DailyTaskList extends AppCompatActivity implements
         getLoaderManager().initLoader(1, null, this);
 
         // update the local server if it hasn't been updated recently
-        try {
-            if (getIntent().getExtras().getBoolean("loadedFromServer") != true) {
+        if (prefs.getBoolean(getString(R.string.pref_rdb_category), false)) {
+            try {
+                if (getIntent().getExtras().getBoolean("loadedFromServer") != true) {
+                    RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
+                    rsat.setUpdateRemoteQuery(this);
+
+                    // TO-DO: Make server, port dynamic
+                    rsat.execute("query",
+                            prefs.getString(getString(R.string.pref_rdb_uri), ""),
+                            prefs.getString(getString(R.string.pref_rdb_port), ""));
+                }
+            } catch (NullPointerException e) {
                 RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
                 rsat.setUpdateRemoteQuery(this);
-
-                // TO-DO: Make server, port dynamic
                 rsat.execute("query",
                         prefs.getString(getString(R.string.pref_rdb_uri), ""),
                         prefs.getString(getString(R.string.pref_rdb_port), ""));
-            } else {
-                Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
             }
-        } catch (NullPointerException e) {
-            RemoteServerAsyncTask rsat = new RemoteServerAsyncTask();
-            rsat.setUpdateRemoteQuery(this);
-            rsat.execute("query",
-                    prefs.getString(getString(R.string.pref_rdb_uri), ""),
-                    prefs.getString(getString(R.string.pref_rdb_port), ""));
         }
     }
 
@@ -199,8 +199,8 @@ public class DailyTaskList extends AppCompatActivity implements
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Unimportant Toast test
-        Toast.makeText(this, "Hello, "+prefs.getString(getString(R.string.pref_name), ""),
-                Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Hello, "+prefs.getString(getString(R.string.pref_name), ""),
+        //        Toast.LENGTH_LONG).show();
         //End Unimportant Toast Test
     }
 
@@ -249,6 +249,7 @@ public class DailyTaskList extends AppCompatActivity implements
     @Override
     // restart the activity when the remote query finishes updating the local database
     public void onRemoteQueryFinished() {
+        Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
         finish();
         getIntent().putExtra("loadedFromServer", true);
         startActivity(getIntent());
@@ -266,13 +267,13 @@ public class DailyTaskList extends AppCompatActivity implements
     public void addTask(MenuItem item) {
         ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
-        values.put("subject", "<New Task>");
+        values.put("subject", "");
         values.put("description", "");
-        values.put("priority", "0");
+        values.put("priority", "");
         values.put("completion_status", "0");
-        values.put("completion_percentage", "0");
-        values.put("start_time", "1999-12-31");
-        values.put("end_time", "1999-12-31");
+        values.put("completion_percentage", "");
+        values.put("start_time", "");
+        values.put("end_time", "");
 
         String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI, values)).getLastPathSegment();
 

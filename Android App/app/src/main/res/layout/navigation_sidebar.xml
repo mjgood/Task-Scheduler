@@ -35,8 +35,10 @@
             android:text="Weekly View"
             android:id="@+id/navigationViewWeekly"
             android:layout_below="@id/navigationViewDaily"
-            android:textColor="@color/colorWhite"
-            android:onClick="viewWeekly"/>
+            android:textColor="@color/colorGray"
+            />
+        <!-- android:textColor="@color/colorWhite"
+            android:onClick="viewWeekly" -->
         <TextView
             android:layout_marginTop="8dp"
             android:layout_marginLeft="6dp"
@@ -50,8 +52,10 @@
             android:id="@+id/navigationViewMonthly"
             android:layout_below="@id/navigationViewWeekly"
             android:text="Monthly View"
-            android:onClick="viewMonthly"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorGray"
+            />
+        <!-- android:textColor="@color/colorWhite"
+            android:onClick="viewMonthly" -->
         <TextView
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="6dp"
@@ -65,7 +69,8 @@
             android:text="Force Sync"
             android:id="@+id/navigationForceSync"
             android:textColor="@color/colorWhite"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:onClick="onSync"/>
     </RelativeLayout>
 
 </RelativeLayout>

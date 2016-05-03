@@ -105,7 +105,6 @@ public class TaskView extends AppCompatActivity {
         int deleteFlag = (cr.delete(DailyTaskContentProvider.CONTENT_URI, where, null));
 
         Intent intent = new Intent(this, DailyTaskList.class);
-        intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
     }
 
@@ -126,7 +125,7 @@ public class TaskView extends AppCompatActivity {
         String where = "_id = " + taskSelected;
         int deleteFlag = (cr.update(DailyTaskContentProvider.CONTENT_URI, values, where, null));
 
-        Intent intent = new Intent(this, DailyTaskList.class);
+        Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
     }
