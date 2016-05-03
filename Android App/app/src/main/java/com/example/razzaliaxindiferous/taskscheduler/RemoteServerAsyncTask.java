@@ -201,18 +201,35 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         //If it gets parsed as a JSONArray, then we're successful.
         //We did it. :)
         String result = sb.toString();
-        try{
-            JSONArray jArray = new JSONArray(result);
-            for(int i=0; i<jArray.length(); i++){
-                JSONObject json_data = jArray.getJSONObject(i);
-                Log.i("log_tag",json_data.toString());
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(result.equalsIgnoreCase("true")){
+            Log.w("TRUE",result);
+            //Database interaction finished successfully
+        }else if(result.equalsIgnoreCase("false")){
+            //Database interaction failed
             return false;
+        }else if(result.equalsIgnoreCase("null")||result.equals("")){
+            //no results
+            return false;
+        }else{
+                try{
+                    JSONArray jArray = new JSONArray(result);
+                    for(int i=0; i<jArray.length(); i++){
+                        JSONObject json_data = jArray.getJSONObject(i);
+                        Log.d("RESPONSE",json_data.toString());
+                        boolean cont=updateLocal(json_data);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return false;
+                }
         }
 
         return true;
+    }
+
+    private boolean updateLocal(JSONObject json_data) {
+
+        return false;
     }
 
     @Override
@@ -227,7 +244,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
     //call event for any listeners once server query is finished
     @Override
     protected void onPostExecute(Boolean result) {
-        if (toUpdate != null && command == "query") {
+        if (toUpdate != null && command.equals("query")) {
             toUpdate.onRemoteQueryFinished();
         }
     }

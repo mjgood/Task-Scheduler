@@ -24,13 +24,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editTaskName"
-            android:text="Hang Out With Cat"
+            android:hint="Task name"
             android:layout_weight="1" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Repeat?"
+            android:hint="Repeat task"
             android:id="@+id/repeatCheckBox"
             android:checked="false"
             android:layout_weight="0.12" />
@@ -46,12 +46,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/editTimeStart"
+            android:inputType="datetime"
             android:hint="Time-Start" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="datetime"
             android:id="@+id/editTimeEnd"
             android:hint="Time-End"
             android:layout_weight="1" />
@@ -120,7 +122,8 @@
         android:ems="10"
         android:id="@+id/editDescription"
         android:layout_weight="0.72"
-        android:text="Lorem ipsum" />
+        android:hint="Description"
+        android:text="" />
 
     <LinearLayout
         android:orientation="horizontal"

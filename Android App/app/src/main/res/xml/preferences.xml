@@ -21,7 +21,7 @@
             android:key="@string/pref_rdb_port"
             android:title="@string/pref_rdb_port_title"
             android:summary="@string/pref_rdb_port_summary"
-            android:defaultValue="@string/pref_rdb_port_default"
+            android:defaultValue=""
             android:inputType="number" />
     </PreferenceCategory>
     <PreferenceCategory

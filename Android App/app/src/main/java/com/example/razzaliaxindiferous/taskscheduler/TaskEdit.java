@@ -66,15 +66,6 @@ public class TaskEdit extends AppCompatActivity {
             completionStatus = c.getString(c.getColumnIndex("completion_status"));
         }
         c.close();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     //######################################################################
@@ -117,6 +108,7 @@ public class TaskEdit extends AppCompatActivity {
 
         cr.update(DailyTaskContentProvider.CONTENT_URI, values, "_id = "+taskSelected, null);
 
+        //We should really just go back to the list after everything. Or make it do so if a task is deleted.
         Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
