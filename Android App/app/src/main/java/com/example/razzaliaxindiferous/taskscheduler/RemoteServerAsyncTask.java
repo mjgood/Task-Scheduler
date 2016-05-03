@@ -286,6 +286,11 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        try {
+                            uConnect.getContent();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         db.close();
 
 
