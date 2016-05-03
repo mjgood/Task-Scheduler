@@ -109,7 +109,7 @@ public class TaskEdit extends AppCompatActivity {
         values.put("priority", Integer.parseInt(((EditText)findViewById(R.id.editPriority)).getText().toString()));
         //values.put("repeat_conditions", ((EditText)findViewById(R.id.???)).getText().toString());
         values.put("description", ((EditText)findViewById(R.id.editDescription)).getText().toString());
-        values.put("completion_status", completionStatus);
+        //values.put("completion_status", completionStatus);
 
         if (newTask) {
             String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI_NOLOCAL, values)).getLastPathSegment();
