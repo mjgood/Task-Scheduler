@@ -70,9 +70,6 @@ public class DailyTaskList extends AppCompatActivity implements
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        Log.d("Where", Integer.toString(dateDisplay.get(Calendar.YEAR)));
-        Log.d("Where", Integer.toString(dateDisplay.get(Calendar.MONTH)));
-        Log.d("Where", Integer.toString(dateDisplay.get(Calendar.DAY_OF_MONTH)));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setCalendar(dateDisplay);
@@ -111,6 +108,7 @@ public class DailyTaskList extends AppCompatActivity implements
                 if (columnIndex == cursor.getColumnIndex("end_time")) {
                     String[] splitResult = cursor.getString(columnIndex).split("-");
                     boolean overdue = false;
+                    ((TextView) newView.findViewById(R.id.txtEnd)).setText(cursor.getString(columnIndex));
 
                     try {
                         if (!((TextView) newView.getRootView().getRootView().getRootView().findViewById(R.id.txtStatus)).getText().equals("Done")) {
@@ -267,8 +265,8 @@ public class DailyTaskList extends AppCompatActivity implements
     public void addTask(MenuItem item) {
         ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
-        values.put("subject", "");
-        values.put("description", "");
+        values.put("subject", "####");
+        values.put("description", "####");
         values.put("priority", "");
         values.put("completion_status", "0");
         values.put("completion_percentage", "");
