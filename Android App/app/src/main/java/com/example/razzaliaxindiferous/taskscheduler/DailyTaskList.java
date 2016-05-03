@@ -46,6 +46,8 @@ public class DailyTaskList extends AppCompatActivity implements
                                             RemoteServerAsyncTask.UpdateOnRemoteQueryFinished {
     private SimpleCursorAdapter mAdapter;
     boolean filtered = false;
+    boolean showCompleted = false;
+    boolean showOverdue = true;
 
     SQLiteDatabase taskDB;
     long currentRow;
@@ -78,8 +80,11 @@ public class DailyTaskList extends AppCompatActivity implements
 
         //Set content view
         setContentView(R.layout.content_daily_task_list);
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             filtered = savedInstanceState.getBoolean("filtered");
+            showCompleted = savedInstanceState.getBoolean("showCompleted");
+            showOverdue = savedInstanceState.getBoolean("showOverdue");
+        }
 
         //Set the Cursor Adapter for the cursor item loader
         mAdapter = new SimpleCursorAdapter(this, R.layout.list_item_daily_task, null,
@@ -180,6 +185,16 @@ public class DailyTaskList extends AppCompatActivity implements
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
+            case R.id.menu_showCompleted:
+                if (showCompleted) { showCompleted = false; }
+                else { showCompleted = true; }
+                getLoaderManager().initLoader(1, null, this);
+                return true;
+            case R.id.menu_showOverdue:
+                if (showOverdue) { showCompleted = false; }
+                else { showOverdue = true; }
+                getLoaderManager().initLoader(1, null, this);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -188,6 +203,8 @@ public class DailyTaskList extends AppCompatActivity implements
     //########################################################################
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putBoolean("showCompleted", showCompleted);
+        outState.putBoolean("showOverdue", showOverdue);
         outState.putBoolean("filtered", filtered);
     }
 
@@ -195,11 +212,6 @@ public class DailyTaskList extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        //Unimportant Toast test
-        //Toast.makeText(this, "Hello, "+prefs.getString(getString(R.string.pref_name), ""),
-        //        Toast.LENGTH_LONG).show();
-        //End Unimportant Toast Test
     }
 
     @Override
