@@ -133,8 +133,10 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         }
 
         //Set our Request properties.
-        urlConnection.setRequestProperty("USER-AGENT","Mozilla/5.0");
-        urlConnection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+        urlConnection.setRequestProperty("User-Agent","Mozilla/5.0");
+        urlConnection.setRequestProperty("Accept-Language", "en-US,en;0.5");
+        urlConnection.setRequestProperty("Accept-Charset", "utf-8");
+        urlConnection.setRequestProperty("Accept-Encoding", "identity");
 
         //We are doing output and input.
         urlConnection.setDoOutput(true);
@@ -168,7 +170,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         //Use a buffered reader to read the input.
         BufferedReader br;
         try {
-            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -179,7 +181,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         String line = null;
         try {
             while((line = br.readLine())!=null){
-                sb.append(line).append("\n");
+                sb.append(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -202,8 +204,8 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         //We did it. :)
         String result = sb.toString();
         if(result.equalsIgnoreCase("true")){
-            Log.w("TRUE",result);
             //Database interaction finished successfully
+            return true;
         }else if(result.equalsIgnoreCase("false")){
             //Database interaction failed
             return false;
