@@ -289,6 +289,7 @@ public class DailyTaskList extends AppCompatActivity implements
         values.put("end_time", "");
 
         String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI_NOREMOTE, values)).getLastPathSegment();
+        values.put("_id", taskEdit);
 
         Intent intent = new Intent(this, TaskEdit.class);
         intent.putExtra("newTask", true);
