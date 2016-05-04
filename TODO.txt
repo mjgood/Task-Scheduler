@@ -1,3 +1,5 @@
 1. Carefully investigate a way to make the app not crash when not all fields are provided during task editing or creation
-2. Fix the negative ID.
-3. Probably Tom: Migrate the task in MySQL to the other table with android _id
+2. Date pickers
+3. Improve navigation if possible
+DONE Fix the negative ID.
+DONE Probably Tom: Migrate the task in MySQL to the other table with android _id
