@@ -4,7 +4,7 @@
  * Task Scheduler Server scripts.
  */
 $db_host="localhost"; //DATABASE HOST NAME
-$db_user="task-sched-serv"; //DATABASE ACCOUNT NAME
-$db_pass="cs475"; //DATABASE ACCOUNT PASSWORD
+$db_user=""; //DATABASE ACCOUNT NAME
+$db_pass=""; //DATABASE ACCOUNT PASSWORD
 $database="task-sched-serv"; //DATABASE NAME
 ?>
