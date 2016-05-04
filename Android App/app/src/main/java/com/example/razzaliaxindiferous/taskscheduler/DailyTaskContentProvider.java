@@ -74,7 +74,7 @@ public class DailyTaskContentProvider extends ContentProvider {
                 insertRemote = false;
                 break;
             case TASKS_NO_LOCAL:
-                id = values.getAsInteger("_id");
+                id = values.getAsLong("_id");
                 Log.w("ID",Long.toString(id));
                 break;
             default:
