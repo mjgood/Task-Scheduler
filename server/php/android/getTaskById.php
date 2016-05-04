@@ -7,8 +7,9 @@
 include '../credentials.php';
 
 $id = $_REQUEST["id"];
-
 $new_task = (isset($_REQUEST["new_task"]))?$_REQUEST["new_task"]:false;
+
+header('Content-Type: text/plain; charset=utf-8');
 
 if(!$id)
   die('ERROR: must pass id');
@@ -39,5 +40,5 @@ if($result){
 }else
   die("ERROR: ".mysqli_error($link));
 
-mysqli_close();
+mysqli_close($link);
 ?>

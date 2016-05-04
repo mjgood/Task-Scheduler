@@ -8,6 +8,8 @@ include '../credentials.php';
 
 $link = mysqli_connect($db_host,$db_user,$db_pass,$database);
 
+header('Content-Type: text/plain; charset=utf-8');
+
 if(!$link)
   die('Could not connect: ' . mysqli_connect_error());
 
@@ -22,5 +24,5 @@ if($result){
 }else
   die("ERROR: ".mysqli_error($link));
 
-mysqli_close();
+mysqli_close($link);
 ?>

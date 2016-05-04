@@ -4,6 +4,9 @@
  * Requires id and at least one other value POSTed
  */
 include '../credentials.php';
+
+header('Content-Type: text/plain; charset=utf-8');
+
 $link = mysqli_connect($db_host,$db_user,$db_pass,$database);
 
 if(!$link) {
@@ -132,5 +135,5 @@ if($result)
 else
   die("ERROR: ".mysqli_error($link));
 
-mysqli_close();
+mysqli_close($link);
 ?>

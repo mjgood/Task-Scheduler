@@ -6,8 +6,9 @@
 include '../credentials.php';
 
 $id = $_REQUEST["id"];
-
 $new_task = (isset($_REQUEST["new_task"]))?$_REQUEST["new_task"]:false;
+
+header('Content-Type: text/plain; charset=utf-8');
 
 if(!$id)
   die('ERROR: must pass id');
@@ -21,7 +22,7 @@ if(!$link) {
 //If we are deleting a new task:
 if($new_task){
   $query =
-      "DELETE FROM new_tasks" .
+      "DELETE FROM new_tasks " .
       "WHERE task_id = $id";
 }else{ //If we are deleting a previously snyced task:
   $query =
@@ -36,5 +37,5 @@ if($result)
 else
   die("ERROR: ".mysqli_error($link));
 
-mysqli_close();
+mysqli_close($link);
 ?>
