@@ -22,7 +22,7 @@
             android:id="@+id/navigationViewDaily"
             android:textColor="@color/colorWhite"
             android:onClick="viewDaily"/>
-        <TextView
+        <!--<TextView
             android:layout_marginTop="8dp"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
@@ -37,8 +37,8 @@
             android:layout_below="@id/navigationViewDaily"
             android:textColor="@color/colorGray"
             />
-        <!-- android:textColor="@color/colorWhite"
-            android:onClick="viewWeekly" -->
+         android:textColor="@color/colorWhite"
+            android:onClick="viewWeekly"
         <TextView
             android:layout_marginTop="8dp"
             android:layout_marginLeft="6dp"
@@ -54,8 +54,8 @@
             android:text="Monthly View"
             android:textColor="@color/colorGray"
             />
-        <!-- android:textColor="@color/colorWhite"
-            android:onClick="viewMonthly" -->
+        - android:textColor="@color/colorWhite"
+            android:onClick="viewMonthly" --> -->
         <TextView
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="6dp"

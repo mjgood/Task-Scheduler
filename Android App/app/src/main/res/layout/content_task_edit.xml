@@ -27,13 +27,13 @@
             android:hint="Task name"
             android:layout_weight="1" />
 
-        <CheckBox
+        <!-- <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Repeat task"
             android:id="@+id/repeatCheckBox"
             android:checked="false"
-            android:layout_weight="0.12" />
+            android:layout_weight="0.12" /> -->
     </LinearLayout>
 
     <LinearLayout
@@ -46,16 +46,20 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/editTimeStart"
+            android:focusable="false"
             android:inputType="datetime"
-            android:hint="Time-Start" />
+            android:hint="Time-Start"
+            android:onClick="pickStartDate"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:focusable="false"
             android:inputType="datetime"
             android:id="@+id/editTimeEnd"
             android:hint="Time-End"
+            android:onClick="pickEndDate"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -78,10 +82,10 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editCompletion"
-            android:hint="Completion" />
+            android:hint="Completion Percent" />
     </LinearLayout>
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -106,7 +110,7 @@
             android:text="None"
             android:id="@+id/noneRadioButton"
             android:checked="false" />
-    </LinearLayout>
+    </LinearLayout> -->
 
     <TextView
         android:layout_width="wrap_content"
@@ -146,5 +150,11 @@
             android:layout_marginTop="20dp"
             android:onClick="cancelEdit"/>
     </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="SHOW SIDEBAR"
+        android:layout_gravity="bottom|end"
+        android:onClick="swipeButton"/>
 
 </LinearLayout>

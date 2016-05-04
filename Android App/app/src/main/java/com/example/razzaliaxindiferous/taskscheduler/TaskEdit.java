@@ -6,26 +6,28 @@
 
 package com.example.razzaliaxindiferous.taskscheduler;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class TaskEdit extends AppCompatActivity {
+public class TaskEdit extends AppCompatActivity implements DatePickerFragment.DatePickerCallback {
 
     private int taskSelected = -1;
     private String completionStatus = "0";
@@ -92,24 +94,44 @@ public class TaskEdit extends AppCompatActivity {
     //User wants to save their changes to the task
     public void doneEdit(View view)
     {
+        //check to ensure all variables are entered properly
+        if (((EditText)findViewById(R.id.editTaskName)).getText().toString().equals("")) {
+            Toast.makeText(this, "You must enter a Task Name!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (((EditText)findViewById(R.id.editCompletion)).getText().toString().equals("")) {
+            Toast.makeText(this, "You must enter a number for Completion Percentage!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (((EditText)findViewById(R.id.editTimeStart)).getText().toString().equals("")) {
+            Toast.makeText(this, "You must enter a Start Date!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (((EditText)findViewById(R.id.editTimeEnd)).getText().toString().equals("")) {
+            Toast.makeText(this, "You must enter an End Date!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (((EditText)findViewById(R.id.editPriority)).getText().toString().equals("")) {
+            Toast.makeText(this, "You must enter a number for Priority!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (((EditText)findViewById(R.id.editDescription)).getText().toString().equals("")) {
+            Toast.makeText(this, "You must enter a Description!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Store the input values in the database
         ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
 
         values.put("_id", taskSelected);
         values.put("subject", ((EditText)findViewById(R.id.editTaskName)).getText().toString());
-        //values.put("completion_status", Integer.parseInt(((EditText)findViewById(R.id.editTime)).getText().toString()));
         values.put("completion_percentage", Integer.parseInt(((EditText)findViewById(R.id.editCompletion)).getText().toString()));
         values.put("completion_status", "0");
-        //values.put("repeat_id", (((CheckBox)findViewById(R.id.repeatCheckBox)).isChecked()) ? 1:0);
         values.put("start_time", ((EditText)findViewById(R.id.editTimeStart)).getText().toString());
         values.put("end_time", ((EditText)findViewById(R.id.editTimeEnd)).getText().toString());
-        //values.put("deadline_time", ((EditText)findViewById(R.id.editTime)).getText().toString());
-        //values.put("estimated_time", ((EditText)findViewById(R.id.editTime)).getText().toString());
         values.put("priority", Integer.parseInt(((EditText)findViewById(R.id.editPriority)).getText().toString()));
-        //values.put("repeat_conditions", ((EditText)findViewById(R.id.???)).getText().toString());
         values.put("description", ((EditText)findViewById(R.id.editDescription)).getText().toString());
-        //values.put("completion_status", completionStatus);
 
         if (newTask) {
             String taskEdit = (cr.insert(DailyTaskContentProvider.CONTENT_URI_NOLOCAL, values)).getLastPathSegment();
@@ -122,5 +144,28 @@ public class TaskEdit extends AppCompatActivity {
         Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("itemSelected", taskSelected);
         startActivity(intent);
+    }
+
+    public void pickStartDate(View view) {
+        DialogFragment newFragment = new DatePickerFragment();
+        ((DatePickerFragment) newFragment).callback = this;
+        ((DatePickerFragment) newFragment).whereFrom = "startDate";
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void pickEndDate(View view) {
+        DialogFragment newFragment = new DatePickerFragment();
+        ((DatePickerFragment) newFragment).callback = this;
+        ((DatePickerFragment) newFragment).whereFrom = "endDate";
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    @Override
+    public void dateSet(String formattedDate, String whereFrom) {
+        if (whereFrom.equals("startDate")) {
+            ((EditText) findViewById(R.id.editTimeStart)).setText(formattedDate);
+        } else if (whereFrom.equals("endDate")) {
+            ((EditText) findViewById(R.id.editTimeEnd)).setText(formattedDate);
+        }
     }
 }

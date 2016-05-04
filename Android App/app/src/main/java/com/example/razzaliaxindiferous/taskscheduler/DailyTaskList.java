@@ -43,7 +43,8 @@ public class DailyTaskList extends AppCompatActivity implements
                                             LoaderManager.LoaderCallbacks<Cursor>,
                                             AdapterView.OnItemClickListener,
                                             AdapterView.OnItemLongClickListener,
-                                            RemoteServerAsyncTask.UpdateOnRemoteQueryFinished {
+                                            RemoteServerAsyncTask.UpdateOnRemoteQueryFinished,
+                                            DatePickerFragment.DatePickerCallback {
     private SimpleCursorAdapter mAdapter;
     boolean filtered = false;
     boolean showCompleted = false;
@@ -66,17 +67,26 @@ public class DailyTaskList extends AppCompatActivity implements
 
         //SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getString(getString(R.string.pref_date_display), "1999-99-99").equals("1999-99-99")) {
+            //Set date being displayed to the current day
+            dateDisplay = new GregorianCalendar(
+                    Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
-        //Set date being displayed to the current day
-        dateDisplay = new GregorianCalendar(
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setCalendar(dateDisplay);
+            showDate = sdf.format(dateDisplay.getTime());
+            ((EditText) findViewById(R.id.textDateDisplay)).setText(showDate);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setCalendar(dateDisplay);
-        showDate = sdf.format(dateDisplay.getTime());
-        ((EditText) findViewById(R.id.textDateDisplay)).setText(showDate);
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putString(getString(R.string.pref_date_display),showDate);
+            edit.apply();
+        } else {
+            showDate = prefs.getString(getString(R.string.pref_date_display), "1999-99-99");
+            ((EditText) findViewById(R.id.textDateDisplay)).setText(showDate);
+        }
+        Log.d("Stored pref is: ", prefs.getString(getString(R.string.pref_date_display), "no-val"));
 
         //Set content view
         setContentView(R.layout.content_daily_task_list);
@@ -269,13 +279,29 @@ public class DailyTaskList extends AppCompatActivity implements
     }
 
     //########################################################################
+    @Override
+    // set date when date is picked from date picker
+    public void dateSet(String formattedDate, String whereFrom) {
+        ((EditText) findViewById(R.id.textDateDisplay)).setText(formattedDate);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putString(getString(R.string.pref_date_display),showDate);
+        edit.apply();
+
+        Intent refreshMenuIntent = new Intent(this, DailyTaskList.class);
+        startActivity(refreshMenuIntent);
+    }
     //User selects the Pick Date button in title bar
     public void pickDate(View view) {
-        String showDate = ((EditText) view.getRootView().findViewById(R.id.textDateDisplay)).getText().toString();
-        getLoaderManager().initLoader(1, null, this);
+        android.support.v4.app.DialogFragment newFragment = new DatePickerFragment();
+        ((DatePickerFragment) newFragment).callback = this;
+        ((DatePickerFragment) newFragment).whereFrom = "pickDate";
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    //########################################################################
     //User selects the Create Task button in title bar
     public void addTask(MenuItem item) {
         ContentResolver cr = getContentResolver();

@@ -111,7 +111,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="240dp"
         android:id="@+id/scrollView" >
 
         <TextView
@@ -124,7 +124,14 @@
             android:id="@+id/textViewDescription" />
     </ScrollView>
 
-    <LinearLayout
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="SHOW SIDEBAR"
+        android:layout_gravity="bottom|end"
+        android:onClick="swipeButton"/>
+
+    <!-- <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -142,6 +149,6 @@
             android:text="Next Task"
             android:id="@+id/button2"
             android:layout_marginTop="20dp" />
-    </LinearLayout>
+    </LinearLayout> !-->
 
 </LinearLayout>
