@@ -31,7 +31,7 @@ public class NavigationSidebar extends AppCompatActivity implements
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -51,7 +51,7 @@ public class NavigationSidebar extends AppCompatActivity implements
                 return super.onOptionsItemSelected(item);
         }
     }
-
+*/
     //########################################################################
 
     //User swipes the daily view
@@ -107,4 +107,5 @@ public class NavigationSidebar extends AppCompatActivity implements
     public void onRemoteQueryFinished() {
         Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
     }
+
 }

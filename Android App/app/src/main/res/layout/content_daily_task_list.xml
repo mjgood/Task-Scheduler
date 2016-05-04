@@ -32,10 +32,10 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/changeDateBar"
         android:id="@+id/dailyTaskList"
         android:background="@color/colorGray"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/completion_percentage_title" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,4 +45,43 @@
         android:onClick="swipeButton"
         android:id="@+id/dtvShowNavigation"
         />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/task_title_title_view"
+        android:id="@+id/task_title_title"
+        android:layout_below="@+id/changeDateBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/start_date_title_view"
+        android:id="@+id/start_date_title"
+        android:layout_below="@+id/changeDateBar"
+        android:layout_toLeftOf="@+id/completion_percentage_title" />
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/completion_percentage_title_view"
+        android:id="@+id/completion_percentage_title"
+        android:layout_alignTop="@+id/task_title_title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/description_title_view"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/task_title_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

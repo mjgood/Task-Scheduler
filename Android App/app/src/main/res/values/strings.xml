@@ -49,5 +49,12 @@
     <string name="view_date_txt">Date:</string>
     <string name="force_sync_txt">Force Sync</string>
     <string name="daily_view_txt">Daily View</string>
+    <string name="start_date_title_view">Start Date</string>
+    <string name="completion_percentage_title_view">Completion Percentage</string>
+    <string name="description_title_view">Description</string>
+    <string name="task_title_title_view">Task Title</string>
+    <string name="settings_settings_title">Settings</string>
+    <string name="task_add_text">+</string>
+    <string name="refresh_text">Refresh</string>
 
 </resources>

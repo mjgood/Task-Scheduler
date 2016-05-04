@@ -12,16 +12,24 @@ Michael Good, mjg5632
  <!-- add task !-->
     <item android:id="@+id/addTask_actionButton"
         android:orderInCategory="102"
-        android:title="+"
+        android:title="@string/task_add_text"
         android:icon="@mipmap/task_add"
         android:onClick="addTask"
-        app:showAsAction="always|withText"/>
+        app:showAsAction="always"/>
     <!-- settings !-->
     <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
-        android:title="Settings"
+        android:title="@string/settings_settings_title"
     app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:orderInCategory="101"
+        android:icon="@drawable/task_refresh"
+        android:onClick="refreshList"
+        android:title="@string/refresh_text"
+        app:showAsAction="ifRoom"/>
     <!-- <item
         android:id="@+id/menu_showCompleted"
         android:orderInCategory="100"

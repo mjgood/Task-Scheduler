@@ -204,6 +204,13 @@ public class DailyTaskList extends AppCompatActivity implements
         }
     }
 
+    public void refreshList(MenuItem item){
+        Intent intent=new Intent(this, DailyTaskList.class);
+        Toast.makeText(this, "Task list refreshed", Toast.LENGTH_SHORT).show();
+        finish();
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

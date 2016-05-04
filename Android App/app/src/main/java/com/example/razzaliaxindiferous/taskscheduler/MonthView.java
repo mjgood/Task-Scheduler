@@ -30,7 +30,7 @@ public class MonthView extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -50,7 +50,7 @@ public class MonthView extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+*/
     //######################################################################
 
     //User swipes the screen to show the Navigation Panel
