@@ -65,6 +65,7 @@ public class DailyTaskList extends AppCompatActivity implements
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         setContentView(R.layout.activity_daily_task_list);
 
+        Log.d("Stored pref is: ", "1");
         //SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs.getString(getString(R.string.pref_date_display), "1999-99-99").equals("1999-99-99")) {
