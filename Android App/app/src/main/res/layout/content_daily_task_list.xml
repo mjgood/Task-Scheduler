@@ -23,17 +23,10 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:id="@+id/textDateDisplay"
-            android:text="2016-04-30"
-            android:selectAllOnFocus="true">
-        </EditText>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Set Date"
-            android:layout_marginLeft="20dp"
+            android:focusable="false"
             android:onClick="pickDate"
             android:selectAllOnFocus="true">
-        </Button>
+        </EditText>
     </LinearLayout>
     <ListView
         android:layout_width="match_parent"

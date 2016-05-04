@@ -7,6 +7,7 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <string name="pref_date_display">1999-99-99</string>
     <!-- Personal Settings -->
     <string name="personal_settings_category">Personal Settings</string>
     <string name="pref_name">displayName</string>

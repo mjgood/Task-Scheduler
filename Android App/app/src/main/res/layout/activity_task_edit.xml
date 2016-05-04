@@ -24,13 +24,6 @@
 
     <include layout="@layout/content_task_edit" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="TO-DO: SWIPE GESTURE OPENS SIDEBAR"
-        android:layout_gravity="bottom|end"
-        android:onClick="swipeButton"/>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="0dp"
