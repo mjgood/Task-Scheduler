@@ -74,6 +74,7 @@ public class DailyTaskContentProvider extends ContentProvider {
                 insertRemote = false;
                 break;
             case TASKS_NO_LOCAL:
+                Log.w("ID",Long.toString(id));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);

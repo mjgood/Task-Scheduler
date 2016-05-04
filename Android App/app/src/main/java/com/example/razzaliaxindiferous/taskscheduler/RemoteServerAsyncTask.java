@@ -63,7 +63,14 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
     //          queries to the server.
     @Override
     protected Boolean doInBackground(String... params) {
-        //vals
+        //None of this block should be verbatim, except by coincidence.
+        //However, many StackOverflow questions were referenced (predominantly without code)
+        //These were mainly used to help reference user agents and the like, charsets and encoding
+        //A specific example: http://stackoverflow.com/questions/9767952/how-to-add-parameters-to-httpurlconnection-using-post
+        //Google's Android Developer Reference was used.
+        //http://www.xyzws.com/javafaq/how-to-use-httpurlconnection-post-data-to-web-server/139
+        //http://alvinalexander.com/blog/post/java/how-open-url-read-contents-httpurl-connection-java
+        //https://www.numetriclabz.com/android-post-and-get-request-using-httpurlconnection/
         command = params[0];
         String serverAddress = params[1];
         String serverPort = params[2];
@@ -219,7 +226,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
         //If it gets parsed as a JSONArray, then we're successful.
         //We did it. :)
         String result = sb.toString();
-        Log.w("RESULT",result);
+        Log.i("RESULT",result);
         if(result.equalsIgnoreCase("true")){
             //Database interaction finished successfully
             return true;
@@ -234,7 +241,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                     JSONArray jArray = new JSONArray(result);
                     for(int i=0; i<jArray.length(); i++){
                         JSONObject json_data = jArray.getJSONObject(i);
-                        Log.d("RESPONSE",json_data.toString());
+                        Log.i("RESPONSE",json_data.toString());
                         Database taskDB = Database.getInstance(rsContext);
                         SQLiteDatabase db = taskDB.getWritableDatabase();
                         ContentValues values = new ContentValues();
@@ -268,7 +275,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                         }
 
                         long id= db.insert("tasks",null, values);
-                        Log.w("id",Long.toString(id));
+                        Log.i("id",Long.toString(id));
                         HttpURLConnection uConnect = null;
                         String conn = "http://"+serverAddress+":"+serverPort+"/php/android/deleteTaskById.php?new_task=1&id="+json_data.getInt("task_id");
                         URL url2 = null;
@@ -350,7 +357,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
 
                         //POST our params, and close.
                         op.print(postParams);
-                        Log.w("PostParms",postParams);
+                        Log.i("PostParms",postParams);
                         op.close();
 
                         try {
