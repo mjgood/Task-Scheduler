@@ -256,6 +256,7 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                         }catch(Exception e){
                             values.put("end_time", "1999-12-25");
                         }
+
                         long id= db.insert("tasks",null, values);
                         Log.w("id",Long.toString(id));
                         HttpURLConnection uConnect = null;
@@ -293,6 +294,60 @@ public class RemoteServerAsyncTask extends AsyncTask<String, Integer, Boolean> {
                         }
                         db.close();
 
+                        //The following code inserts the data into the remote database.
+                        postParams="subject=\""+values.getAsString("subject")+"\"&description=\""+values.getAsString("description")+
+                                "\"&priority="+values.get("priority")+"&completion_status="+values.get("completion_status")+
+                                "&completion_percentage="+values.get("completion_percentage")+"&start_time=\""+
+                                values.getAsString("start_time")+"\"&end_time=\""+values.getAsString("end_time")+"\"&id="+id;
+
+                        conn="http://"+serverAddress+":"+serverPort+"/php/android/insertTask.php";
+
+                        URL url3 = null;
+                        HttpURLConnection uConnect2 = null;
+
+                        try {
+                            url3=new URL(conn);
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            uConnect2 = (HttpURLConnection) url3.openConnection();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        uConnect2.setReadTimeout(10000);
+                        uConnect2.setConnectTimeout(15000);
+                        try {
+                            uConnect2.setRequestMethod("POST");
+                        } catch (ProtocolException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            uConnect2.connect();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        //Our PrintWriter will be used for POSTING our output.
+                        PrintWriter op = null;
+                        try {
+                            op = new PrintWriter(uConnect2.getOutputStream());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        //POST our params, and close.
+                        op.print(postParams);
+                        Log.w("PostParms",postParams);
+                        op.close();
+
+                        try {
+                            uConnect2.getContent();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 } catch (JSONException e) {
