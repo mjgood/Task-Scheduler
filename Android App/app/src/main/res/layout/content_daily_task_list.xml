@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date:">
+            android:text="@string/view_date_txt">
         </TextView>
         <EditText
             android:layout_width="120dp"
@@ -25,7 +25,8 @@
             android:id="@+id/textDateDisplay"
             android:focusable="false"
             android:onClick="pickDate"
-            android:selectAllOnFocus="true">
+            android:selectAllOnFocus="true"
+            android:inputType="datetime">
         </EditText>
     </LinearLayout>
     <ListView
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="bottom"
-        android:text="Show Navigation Sidebar"
+        android:text="@string/btn_show_sidebar_txt"
         android:onClick="swipeButton"
         android:id="@+id/dtvShowNavigation"
         />

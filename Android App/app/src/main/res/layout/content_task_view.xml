@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Hang Out With Cat"
+                android:text=""
                 android:id="@+id/textViewSubject"
                 android:layout_marginBottom="4dp"/>
             <LinearLayout
@@ -36,12 +36,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Completed: "/>
+                    android:text="@string/completed_txt"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="False"
+                    android:text=""
                     android:id="@+id/textViewCompleted" />
             </LinearLayout>
             <LinearLayout
@@ -51,12 +51,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="End at: "/>
+                    android:text="@string/end_time_txt"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Daily, All Day"
+                    android:text=""
                     android:id="@+id/textViewEndDate" />
             </LinearLayout>
             <LinearLayout
@@ -66,12 +66,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Priority: "/>
+                    android:text="@string/priority_txt"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="High Priority"
+                    android:text=""
                     android:id="@+id/textViewPriority" />
             </LinearLayout>
         </LinearLayout>
@@ -85,19 +85,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:onClick="taskEdit"
-                android:text="Edit Task" />
+                android:text="@string/btn_edit_task_txt" />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:onClick="taskComplete"
-                android:text="Complete Task" />
+                android:text="@string/btn_complete_task_txt" />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:onClick="taskDelete"
-                android:text="Delete Task" />
+                android:text="@string/btn_delete_task_txt" />
         </LinearLayout>
     </LinearLayout>
 
@@ -105,9 +105,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Description"
-        android:layout_alignParentBottom="true"
+        android:text="@string/view_description_txt"
         android:id="@+id/textView7" />
+    <!--android:layout_alignParentBottom="true"-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -117,17 +117,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My cat is pretty great, and it's important that I hang out with her all the time.\n\n
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras auctor erat magna, eu aliquet orci iaculis vitae. Nulla eleifend tortor at diam aliquet tempus id non massa. Aenean luctus sollicitudin neque nec pretium. Etiam congue lectus diam, a efficitur ante bibendum quis. Duis scelerisque malesuada dui, at commodo leo dignissim eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin quis eros a nulla ultricies ultrices.\n\n
-            Suspendisse sodales odio eu magna facilisis tempor. Ut consequat commodo ligula quis finibus. Morbi suscipit laoreet dolor, quis volutpat diam facilisis a. Nunc nunc augue, pharetra vitae posuere et, condimentum eget velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed mollis, nisi nec dictum dapibus, nunc erat cursus arcu, a commodo nibh mauris eget dolor. Cras ut tellus ac purus finibus dictum. Praesent suscipit arcu eget tortor convallis fringilla. Nunc at pulvinar ipsum. Morbi molestie volutpat consectetur.
-            "
+            android:text=""
             android:id="@+id/textViewDescription" />
     </ScrollView>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="SHOW SIDEBAR"
+        android:text="@string/btn_show_sidebar_txt"
         android:layout_gravity="bottom|end"
         android:onClick="swipeButton"/>
 

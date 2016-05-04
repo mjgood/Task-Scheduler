@@ -7,7 +7,7 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
-    <string name="pref_date_display">1999-99-99</string>
+    <string name="pref_date_display">1999–99–99</string>
     <!-- Personal Settings -->
     <string name="personal_settings_category">Personal Settings</string>
     <string name="pref_name">displayName</string>
@@ -26,9 +26,28 @@
     <string name="pref_rdb_port">remoteDB_port</string>
     <string name="pref_rdb_port_title">Port</string>
     <string name="pref_rdb_port_summary">The port opened to access remote database</string>
-    <string name="pref_rdb_port_default">3306</string>
+    <string name="pref_rdb_port_default">8010</string>
 
     <!-- Sideview Text -->
     <string name="settings_text">Preferences</string>
+    <string name="btn_complete_task_txt">Complete Task</string>
+    <string name="btn_delete_task_txt">Delete Task</string>
+    <string name="btn_edit_task_txt">Edit Task</string>
+    <string name="btn_show_sidebar_txt">SHOW SIDEBAR</string>
+    <string name="view_description_txt">Description</string>
+    <string name="priority_txt">Priority:</string>
+    <string name="end_time_txt">End at:</string>
+    <string name="completed_txt">Completed:</string>
+    <string name="description_hint">Description</string>
+    <string name="btn_done_txt">Done</string>
+    <string name="btn_cancel_txt">Cancel</string>
+    <string name="btn_completion_percent_txt">Completion Percent</string>
+    <string name="priority_hint">Priority</string>
+    <string name="time_end_hint">Time-End</string>
+    <string name="time_start_hint">Time-Start</string>
+    <string name="task_name_hint">Task name</string>
+    <string name="view_date_txt">Date:</string>
+    <string name="force_sync_txt">Force Sync</string>
+    <string name="daily_view_txt">Daily View</string>
 
 </resources>

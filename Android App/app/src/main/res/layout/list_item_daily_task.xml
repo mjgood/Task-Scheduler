@@ -37,7 +37,7 @@
                 android:id="@+id/txtEnd"
                 android:gravity="right"
                 android:focusable="false"
-                android:text="Hadssad!"
+                android:text=""
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1"/>
@@ -46,7 +46,7 @@
             android:paddingTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dummy Text"
+            android:text=""
             android:id="@+id/txtDescription"
             android:layout_below="@id/layoutDailyTaskInformationheader"/>
     </RelativeLayout>
@@ -59,7 +59,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Done"
+            android:text="@string/btn_done_txt"
             android:textStyle="bold"
             android:id="@+id/txtPercent"/>
     </RelativeLayout>

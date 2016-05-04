@@ -6,8 +6,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorPrimaryDark"
-        android:elevation="1dp">
+        android:background="@color/colorPrimaryDark">
+<!--        android:elevation="1dp">-->
         <TextView
             android:layout_marginTop="8dp"
             android:layout_marginLeft="6dp"
@@ -18,7 +18,7 @@
             android:paddingBottom="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Daily View"
+            android:text="@string/daily_view_txt"
             android:id="@+id/navigationViewDaily"
             android:textColor="@color/colorWhite"
             android:onClick="viewDaily"/>
@@ -55,7 +55,7 @@
             android:textColor="@color/colorGray"
             />
         - android:textColor="@color/colorWhite"
-            android:onClick="viewMonthly" --> -->
+            android:onClick="viewMonthly" -->
         <TextView
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="6dp"
@@ -66,7 +66,7 @@
             android:paddingBottom="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Force Sync"
+            android:text="@string/force_sync_txt"
             android:id="@+id/navigationForceSync"
             android:textColor="@color/colorWhite"
             android:layout_alignParentBottom="true"

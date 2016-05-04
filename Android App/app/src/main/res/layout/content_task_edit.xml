@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editTaskName"
-            android:hint="Task name"
+            android:hint="@string/task_name_hint"
             android:layout_weight="1" />
 
         <!-- <CheckBox
@@ -48,7 +48,7 @@
             android:id="@+id/editTimeStart"
             android:focusable="false"
             android:inputType="datetime"
-            android:hint="Time-Start"
+            android:hint="@string/time_start_hint"
             android:onClick="pickStartDate"/>
 
         <EditText
@@ -58,7 +58,7 @@
             android:focusable="false"
             android:inputType="datetime"
             android:id="@+id/editTimeEnd"
-            android:hint="Time-End"
+            android:hint="@string/time_end_hint"
             android:onClick="pickEndDate"
             android:layout_weight="1" />
     </LinearLayout>
@@ -74,7 +74,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editPriority"
-            android:hint="Priority" />
+            android:hint="@string/priority_hint" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editCompletion"
-            android:hint="Completion Percent" />
+            android:hint="@string/btn_completion_percent_txt" />
     </LinearLayout>
 
     <!-- <LinearLayout
@@ -116,7 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Description"
+        android:text="@string/view_description_txt"
         android:id="@+id/descriptionTextView" />
 
     <EditText
@@ -126,7 +126,7 @@
         android:ems="10"
         android:id="@+id/editDescription"
         android:layout_weight="0.72"
-        android:hint="Description"
+        android:hint="@string/description_hint"
         android:text="" />
 
     <LinearLayout
@@ -137,7 +137,7 @@
         <Button
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="Done"
+            android:text="@string/btn_done_txt"
             android:id="@+id/button"
             android:layout_marginTop="20dp"
             android:onClick="doneEdit"/>
@@ -145,7 +145,7 @@
         <Button
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/btn_cancel_txt"
             android:id="@+id/button2"
             android:layout_marginTop="20dp"
             android:onClick="cancelEdit"/>
@@ -153,7 +153,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="SHOW SIDEBAR"
+        android:text="@string/btn_show_sidebar_txt"
         android:layout_gravity="bottom|end"
         android:onClick="swipeButton"/>
 

@@ -27,7 +27,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="TO-DO: SWIPE GESTURE OPENS SIDEBAR"
+        android:text="@string/btn_show_sidebar_txt"
         android:layout_gravity="bottom|end"
         android:onClick="swipeButton"/>
 
