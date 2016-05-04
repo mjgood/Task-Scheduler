@@ -1,8 +1,12 @@
 //######################################################################
 // Week View
 //  Project: TaskScheduler
-//  Author: Thomas Singleton, 2/18/2016
+//  Authors:
+//      Michael Good, 5/4/2016
+//      Thomas Singleton, 5/4/2016
+//      Josiah Hertzler, 5/4/2016
 //######################################################################
+
 
 package com.example.razzaliaxindiferous.taskscheduler;
 

@@ -1,8 +1,12 @@
 //######################################################################
 // Daily Task List
 //  Project: TaskScheduler
-//  Author: Michael Good, 2/18/2016
+//  Authors:
+//      Michael Good, 5/4/2016
+//      Thomas Singleton, 5/4/2016
+//      Josiah Hertzler, 5/4/2016
 //######################################################################
+
 
 package com.example.razzaliaxindiferous.taskscheduler;
 
@@ -65,10 +69,29 @@ public class DailyTaskList extends AppCompatActivity implements
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         setContentView(R.layout.activity_daily_task_list);
 
+        Bundle extras = getIntent().getExtras();
+        try {
+            showDate = extras.getString("formattedDate");
+            ((EditText) findViewById(R.id.textDateDisplay)).setText(showDate);
+        } catch (Exception e) {
+            dateDisplay = new GregorianCalendar(
+                    Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setCalendar(dateDisplay);
+            showDate = sdf.format(dateDisplay.getTime());
+            ((EditText) findViewById(R.id.textDateDisplay)).setText(showDate);
+        }
+
+        try { showCompleted = extras.getBoolean("showCompleted"); } catch (Exception e) { }
+        try { showOverdue = extras.getBoolean("showOverdue"); } catch (Exception e) { }
+
         Log.d("Stored pref is: ", "1");
         //SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getString(getString(R.string.pref_date_display), "1999-99-99").equals("1999-99-99")) {
+        /*if (prefs.getString(getString(R.string.pref_date_display), "1999-99-99").equals("1999-99-99")) {
             //Set date being displayed to the current day
             dateDisplay = new GregorianCalendar(
                     Calendar.getInstance().get(Calendar.YEAR),
@@ -87,7 +110,7 @@ public class DailyTaskList extends AppCompatActivity implements
             showDate = prefs.getString(getString(R.string.pref_date_display), "1999-99-99");
             ((EditText) findViewById(R.id.textDateDisplay)).setText(showDate);
         }
-        Log.d("Stored pref is: ", prefs.getString(getString(R.string.pref_date_display), "no-val"));
+        Log.d("Stored pref is: ", prefs.getString(getString(R.string.pref_date_display), "no-val"));*/
 
         //Set content view
         setContentView(R.layout.content_daily_task_list);
@@ -195,18 +218,26 @@ public class DailyTaskList extends AppCompatActivity implements
         Intent updateMenuIntent = new Intent(this, DailyTaskList.class);
         switch (item.getItemId()) {
             case R.id.menu_settings:
+                updateMenuIntent.putExtra("formattedDate", showDate);
+                finish();
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
-            case R.id.menu_showCompleted:
+            /*case R.id.menu_showCompleted:
                 if (showCompleted) { showCompleted = false; }
                 else { showCompleted = true; }
+                updateMenuIntent.putExtra("formattedDate", showDate);
+                updateMenuIntent.putExtra("showCompleted", true);
+                finish();
                 startActivity(updateMenuIntent);
                 return true;
             case R.id.menu_showOverdue:
                 if (showOverdue) { showCompleted = false; }
                 else { showOverdue = true; }
+                updateMenuIntent.putExtra("formattedDate", showDate);
+                updateMenuIntent.putExtra("showOverdue", true);
+                finish();
                 startActivity(updateMenuIntent);
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -226,6 +257,7 @@ public class DailyTaskList extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ((EditText) findViewById(R.id.textDateDisplay)).setText(showDate);
     }
 
     @Override
@@ -258,6 +290,7 @@ public class DailyTaskList extends AppCompatActivity implements
 
         Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("itemSelected", idSelected);
+        finish();
         startActivity(intent);
     }
 
@@ -265,6 +298,7 @@ public class DailyTaskList extends AppCompatActivity implements
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
                                    long id) {
         Intent intent = new Intent(this, DailyTaskList.class);
+        finish();
         startActivity(intent);
         return true;
     }
@@ -275,7 +309,9 @@ public class DailyTaskList extends AppCompatActivity implements
     public void onRemoteQueryFinished() {
         Toast.makeText(this, "Database Synced!", Toast.LENGTH_SHORT).show();
         finish();
+        getIntent().putExtra("formattedDate", showDate);
         getIntent().putExtra("loadedFromServer", true);
+        finish();
         startActivity(getIntent());
     }
 
@@ -285,13 +321,22 @@ public class DailyTaskList extends AppCompatActivity implements
     public void dateSet(String formattedDate, String whereFrom) {
         ((EditText) findViewById(R.id.textDateDisplay)).setText(formattedDate);
 
+        //run content provider on ListView
+        /*ListView listView = (ListView) findViewById(R.id.dailyTaskList);
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(this);
+        listView.setOnItemLongClickListener(this);
+        getLoaderManager().initLoader(1, null, this);*/
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         SharedPreferences.Editor edit = prefs.edit();
-        edit.putString(getString(R.string.pref_date_display),showDate);
+        edit.putString(getString(R.string.pref_date_display),formattedDate);
         edit.apply();
 
         Intent refreshMenuIntent = new Intent(this, DailyTaskList.class);
+        refreshMenuIntent.putExtra("formattedDate", formattedDate);
+        finish();
         startActivity(refreshMenuIntent);
     }
     //User selects the Pick Date button in title bar

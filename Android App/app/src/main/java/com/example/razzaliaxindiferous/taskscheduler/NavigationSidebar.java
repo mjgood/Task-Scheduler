@@ -1,8 +1,12 @@
 //######################################################################
 // Navigation Sidebar
 //  Project: TaskScheduler
-//  Author: Michael Good, 2/18/2016
+//  Authors:
+//      Michael Good, 5/4/2016
+//      Thomas Singleton, 5/4/2016
+//      Josiah Hertzler, 5/4/2016
 //######################################################################
+
 
 package com.example.razzaliaxindiferous.taskscheduler;
 
@@ -93,6 +97,10 @@ public class NavigationSidebar extends AppCompatActivity implements
                     prefs.getString(getString(R.string.pref_rdb_uri), ""),
                     prefs.getString(getString(R.string.pref_rdb_port), ""));
         }
+
+        Intent intent = new Intent(this, DailyTaskList.class);
+        finish();
+        startActivity(intent);
     }
 
     //Sync is finished

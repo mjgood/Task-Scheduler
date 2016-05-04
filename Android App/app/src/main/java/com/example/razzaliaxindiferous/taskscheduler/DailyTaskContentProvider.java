@@ -1,3 +1,12 @@
+//######################################################################
+// Daily Task's Content Provider
+//  Project: TaskScheduler
+//  Authors:
+//      Michael Good, 5/4/2016
+//      Thomas Singleton, 5/4/2016
+//      Josiah Hertzler, 5/4/2016
+//######################################################################
+
 package com.example.razzaliaxindiferous.taskscheduler;
 
 import android.content.ContentProvider;

@@ -22,7 +22,7 @@ Michael Good, mjg5632
         android:orderInCategory="100"
         android:title="Settings"
     app:showAsAction="never" />
-    <item
+    <!-- <item
         android:id="@+id/menu_showCompleted"
         android:orderInCategory="100"
         android:title="Toggle Show Completed"
@@ -31,7 +31,7 @@ Michael Good, mjg5632
         android:id="@+id/menu_showOverdue"
         android:orderInCategory="100"
         android:title="Toggle Show Overdue"
-        app:showAsAction="never" />
+        app:showAsAction="never" /> -->
 </menu>
 
     <!-- android:title="@string/action_settings" -->

@@ -1,12 +1,12 @@
 //######################################################################
-// Task DB
-//  Project: SQLite Demonstration
-//  Author: Michael Good, 2/25/2016
-//
-//      This file was directly copied from the SQLite Database we are
-//    implemeneting for the Task Scheduler project. There are several
-//    references to this throughout.
+// Task Database
+//  Project: TaskScheduler
+//  Authors:
+//      Michael Good, 5/4/2016
+//      Thomas Singleton, 5/4/2016
+//      Josiah Hertzler, 5/4/2016
 //######################################################################
+
 
 package com.example.razzaliaxindiferous.taskscheduler;
 
